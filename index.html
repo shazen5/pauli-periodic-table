@@ -1,0 +1,1703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pauli Principle and the Periodic Table</title>
+<meta name="description" content="AI-Assisted Physics Simulation, Topic 8: the Pauli exclusion principle, the Madelung rule and the periodic table from H to Kr, with interactive simulations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F5F1; --card:#FFFFFF; --card2:#FBFAF7; --ink:#2B2B2B; --ink2:#555555; --muted:#7c7c7c; --line:#E4E2DC; --line2:#D2CFC7;
+  --s:#4C72B0; --p:#C9693A; --d:#8172B3; --f:#3A9A88;
+  --s-t:#E3EAF5; --p-t:#FBE6D8; --d-t:#EBE8F4; --f-t:#DDF0EC;
+  --ok:#2F7D4F; --ok-t:#E2F1E7; --bad:#B03A50; --bad-t:#F8E0E5; --warn-t:#FCEBD9;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.05);
+  --nav:rgba(246,245,241,.92);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#15161A; --card:#1F2126; --card2:#1A1C20; --ink:#ECECEC; --ink2:#C2C2C2; --muted:#9A9A9A; --line:#32353C; --line2:#454952;
+    --s:#86A7DE; --p:#EE9E70; --d:#AB9EDD; --f:#62C6B3;
+    --s-t:#233149; --p-t:#432E20; --d-t:#2E2945; --f-t:#1C3A34;
+    --ok:#74C792; --ok-t:#1E3829; --bad:#EE8597; --bad-t:#46242C; --warn-t:#46331F;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+    --nav:rgba(21,22,26,.92);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15161A; --card:#1F2126; --card2:#1A1C20; --ink:#ECECEC; --ink2:#C2C2C2; --muted:#9A9A9A; --line:#32353C; --line2:#454952;
+  --s:#86A7DE; --p:#EE9E70; --d:#AB9EDD; --f:#62C6B3;
+  --s-t:#233149; --p-t:#432E20; --d-t:#2E2945; --f-t:#1C3A34;
+  --ok:#74C792; --ok-t:#1E3829; --bad:#EE8597; --bad-t:#46242C; --warn-t:#46331F;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+  --nav:rgba(21,22,26,.92);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+h1,h2,h3,h4{font-family:Poppins,Inter,sans-serif;font-weight:600;line-height:1.25;color:var(--ink)}
+a{color:var(--s)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible,svg:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--s);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:.9em;background:var(--card2);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+sup{font-size:.7em;line-height:0}
+.math{font-style:italic;white-space:nowrap}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:8px;min-height:52px;max-width:1440px}
+.nav-links{flex-wrap:nowrap}
+@media (max-width:1420px){.brand span{display:none}}
+.brand{font-family:Poppins,sans-serif;font-weight:600;font-size:15px;color:var(--ink);text-decoration:none;white-space:nowrap;margin-right:auto}
+.brand span{color:var(--muted);font-weight:500}
+.nav-links{display:flex;flex-wrap:nowrap;gap:1px;list-style:none;margin:0;padding:0}
+.nav-links a{display:block;padding:5px 7px;border-radius:7px;color:var(--ink2);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap}
+.nav-links a:hover{background:var(--card)}
+.nav-links a.active{background:var(--s-t);color:var(--ink)}
+.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;height:34px;min-width:34px;padding:0 10px;font:500 14px Inter,sans-serif;cursor:pointer}
+#menuBtn{display:none}
+@media (max-width:1180px){
+  #menuBtn{display:inline-block}
+  .nav-links{display:none;position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px 12px;box-shadow:var(--shadow)}
+  .nav-links.open{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+}
+
+/* header */
+header.hero{padding:44px 0 18px;text-align:center}
+.hero svg{width:150px;height:150px}
+.hero h1{font-size:clamp(28px,5vw,44px);margin:10px 0 6px}
+.pill{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 14px;font-size:14px;color:var(--ink2)}
+.members{max-width:760px;margin:16px auto 0;color:var(--ink2);font-size:15px}
+.members strong{color:var(--ink)}
+.legend-spdf{display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:14px;color:var(--ink2)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+/* sections */
+section.sec{padding:34px 0 10px}
+.sec>.wrap>h2{font-size:clamp(22px,3.2vw,30px);margin:0 0 4px;display:flex;align-items:baseline;gap:10px}
+.sec h2 .num{color:var(--muted);font-weight:500}
+.sec h2::after{content:"";display:block}
+.underline{width:36px;height:3px;border-radius:2px;background:var(--s);margin:6px 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:820px){.grid2{grid-template-columns:1fr}}
+.nb-text{max-width:860px}
+.nb-text p{margin:.6em 0}
+.nb-h{font-size:18px;margin:1.1em 0 .3em;color:var(--ink2)}
+h4.nb-h{font-size:16px}
+.note{font-size:14px;color:var(--muted)}
+.sub{color:var(--ink2)}
+.stack>*+*{margin-top:16px}
+
+details.nb-code,details.nbfig{margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--card2)}
+details summary{cursor:pointer;padding:9px 14px;font-size:14px;font-weight:500;color:var(--ink2);list-style-position:inside}
+details[open] summary{border-bottom:1px solid var(--line)}
+details pre{margin:0;padding:12px 14px;overflow:auto;font:12.5px/1.5 ui-monospace,"Cascadia Mono",Consolas,monospace;max-height:520px;color:var(--ink)}
+.nb-out-label{font-size:12px;font-weight:600;color:var(--muted);padding:8px 14px 0;text-transform:uppercase;letter-spacing:.05em}
+pre.nb-out{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow:auto;font:12.5px/1.5 ui-monospace,"Cascadia Mono",Consolas,monospace;color:var(--ink);white-space:pre}
+details pre.nb-out{border:0;border-radius:0;background:transparent}
+details.nbfig img{display:block;max-width:100%;height:auto;margin:12px auto;border-radius:6px;background:#FAFAF7}
+.caption{font-size:15px;color:var(--ink2);max-width:860px}
+.caption p{margin:.4em 0}
+
+/* video */
+.video-card{padding:0;overflow:hidden}
+video{display:block;width:100%;height:auto;background:#000;aspect-ratio:16/9}
+.chapters{display:flex;flex-wrap:wrap;gap:8px;padding:14px}
+.chap{display:flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--card2);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 14px Inter,sans-serif;cursor:pointer}
+.chap b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:500}
+.chap:hover{border-color:var(--line2)}
+.chap.now{background:var(--s-t);border-color:var(--s)}
+
+/* pauli */
+.qn{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:640px){.qn{grid-template-columns:1fr 1fr}}
+.qn .card{border-left:4px solid var(--line2)}
+.qn .sym{font:600 26px Poppins,sans-serif}
+.qn .what{font-weight:600}
+.qn .vals{color:var(--muted);font-size:14px}
+.orbital-ex{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.qtag{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 12px;text-align:center;font-weight:600}
+.qtag small{display:block;font-weight:400;color:var(--muted)}
+.bigbox{width:56px;height:56px;border:2px solid var(--s);background:var(--s-t);border-radius:10px;display:grid;place-items:center}
+.caprow{display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.caprow:last-child{border-bottom:0}
+.caprow .lab{font:600 22px Poppins,sans-serif}
+.caprow .lab small{font:400 13px Inter,sans-serif;color:var(--muted);margin-left:4px}
+.boxes{display:flex;flex-wrap:wrap;gap:4px}
+.ob{width:30px;height:30px;border-radius:6px;border:1.5px solid currentColor;display:grid;place-items:center}
+.caprow .res{font-weight:500;text-align:right;font-size:15px}
+.formula{font:600 clamp(20px,3vw,26px) Poppins,sans-serif;text-align:center;margin:4px 0 12px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+.chip{display:flex;flex-direction:column;align-items:center;gap:4px}
+.chip .top{font-size:12px;color:var(--muted);white-space:nowrap}
+.chip .c{min-width:56px;padding:8px 10px;border-radius:9px;font:600 18px Poppins,sans-serif;text-align:center;border:2px solid transparent}
+.c.l0{background:var(--s-t);color:var(--s)} .c.l1{background:var(--p-t);color:var(--p)} .c.l2{background:var(--d-t);color:var(--d)} .c.l3{background:var(--f-t);color:var(--f)}
+.c.hl{border-color:currentColor}
+.c.diff{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad-t)}
+.chips.small .c{min-width:44px;padding:5px 7px;font-size:15px}
+.arrow-sep{color:var(--line2);font-size:14px;padding-bottom:10px}
+.rulebox{text-align:center}
+.rulebox .r1{font:600 19px Poppins,sans-serif}
+.example{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.example .card{padding:10px 18px;font:500 18px Poppins,sans-serif}
+.conclude{text-align:center;color:var(--ok);font:600 19px Poppins,sans-serif;margin:12px 0 0}
+
+/* builder */
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.btn{border:1px solid var(--line2);background:var(--card);color:var(--ink);border-radius:9px;padding:8px 14px;font:500 15px Inter,sans-serif;cursor:pointer;min-height:40px}
+.btn:hover{background:var(--card2)}
+.btn.primary{background:var(--s);border-color:var(--s);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#111}}
+.btn[aria-pressed="true"]{background:var(--s-t);border-color:var(--s)}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1 1 240px;min-width:200px}
+input[type=range]{flex:1;accent-color:var(--s);min-width:0;height:28px}
+.toggle{display:flex;align-items:center;gap:8px;font-size:15px;cursor:pointer;user-select:none}
+.toggle input{width:18px;height:18px;accent-color:var(--s)}
+.builder{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:18px;margin-top:16px}
+@media (max-width:860px){.builder{grid-template-columns:1fr}}
+.panel-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:0 0 6px}
+#shellSvg,#orbSvg{width:100%;height:auto;display:block}
+.info-head{display:flex;align-items:center;gap:14px}
+.info-head .bigsym{font:600 44px/1 Poppins,sans-serif}
+.info-head .nm{font:600 20px Poppins,sans-serif}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 12px;margin-top:12px;font-size:15.5px}
+@media (max-width:520px){.kv{grid-template-columns:1fr}.kv dt{margin-top:6px}}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-weight:500;word-break:break-word}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-weight:600;font-size:14px}
+.badge.ok{background:var(--ok-t);color:var(--ok)} .badge.bad{background:var(--bad-t);color:var(--bad)}
+.excbox{margin-top:14px;border-radius:12px;padding:12px 14px;background:var(--warn-t);border:1px solid var(--line)}
+.excbox h4{margin:0 0 4px;font-size:16px}
+.excbox p{margin:4px 0;font-size:15px}
+.ptable-wrap{overflow-x:auto;margin-top:16px;padding-bottom:4px}
+.ptable{display:grid;grid-template-columns:repeat(18,minmax(34px,1fr));gap:4px;min-width:660px}
+.el{position:relative;border:1.5px solid transparent;border-radius:7px;padding:3px 0 2px;text-align:center;cursor:pointer;font:600 14px Inter,sans-serif;color:var(--ink);background:var(--card2);opacity:.55;min-height:42px}
+.el small{display:block;font-size:10px;font-weight:500;color:var(--muted);line-height:1}
+.el.bs{background:var(--s-t)} .el.bp{background:var(--p-t)} .el.bd{background:var(--d-t)}
+.el.filled{opacity:1}
+.el.cur{border-color:var(--ink);box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--s)}
+.el.exc::after{content:"*";position:absolute;top:-1px;right:4px;color:var(--bad);font-weight:700}
+.ptlegend{display:flex;flex-wrap:wrap;gap:14px;font-size:13.5px;color:var(--ink2);margin-top:8px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:5px}
+@keyframes popin{from{opacity:0;transform:scale(2.2)}to{opacity:1;transform:scale(1)}}
+@keyframes ring{from{opacity:.9;r:4}to{opacity:0;r:22}}
+.e-new{animation:popin .6s ease-out both;transform-box:fill-box;transform-origin:center}
+.e-ring{animation:ring .9s ease-out both}
+
+/* config table */
+.tbl-wrap{overflow-x:auto}
+table.cfg,table.nb-table,table.order{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+table.cfg th,table.cfg td,table.nb-table th,table.nb-table td{border-bottom:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+table.cfg th,table.nb-table th{background:var(--s-t);font-weight:600;position:sticky;top:0}
+table.cfg tr.exc td{background:var(--warn-t);font-weight:600}
+table.cfg tbody tr:hover td{background:var(--card2)}
+table.cfg tr.exc:hover td{background:var(--warn-t)}
+table.cfg td button{all:unset;cursor:pointer;color:var(--s);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+table.cfg td button:focus-visible{outline:3px solid var(--s);border-radius:4px}
+@media (max-width:700px){
+  table.cfg thead,table.nb-table thead{display:none}
+  table.cfg,table.cfg tbody,table.cfg tr,table.cfg td,table.nb-table,table.nb-table tbody,table.nb-table tr,table.nb-table td{display:block;width:100%}
+  table.cfg tr,table.nb-table tr{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden}
+  table.cfg td,table.nb-table td{position:relative;border-bottom:1px dashed var(--line);padding:5px 10px 5px 148px;min-height:32px}
+  table.cfg td::before,table.nb-table td::before{content:attr(data-label);position:absolute;left:10px;width:130px;color:var(--muted);font-weight:500;font-size:13.5px;line-height:1.35}
+  table.cfg td:empty{display:none}
+}
+
+/* charts */
+.chart-card{position:relative}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--ink2);margin:0 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend svg{flex:none}
+.chart{width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:Inter,sans-serif;fill:var(--muted);font-size:12px}
+.chart svg .axis-title{fill:var(--ink2);font-size:13px;font-weight:500}
+.chart svg .lbl{fill:var(--ink);font-weight:600}
+.chart svg .gl{stroke:var(--line);stroke-width:1}
+.chart svg .ax{stroke:var(--line2);stroke-width:1}
+.chart svg .ov{fill:transparent;cursor:crosshair}
+.chart svg .xh{stroke:var(--ink2);stroke-width:1;stroke-dasharray:3 3;pointer-events:none}
+.chart-title{font:600 16px Poppins,sans-serif;margin:0 0 6px}
+.hint{font-size:13px;color:var(--muted);margin:4px 0 0}
+#tip{position:fixed;z-index:100;pointer-events:none;background:var(--card);color:var(--ink);border:1px solid var(--line2);border-radius:8px;box-shadow:var(--shadow);padding:7px 10px;font-size:13px;line-height:1.45;max-width:260px;opacity:0;transition:opacity .1s}
+#tip.on{opacity:1}
+#tip b{font-weight:600}
+
+/* validation grids */
+.vgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
+@media (max-width:640px){.vgrid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.vgrid.narrow{grid-template-columns:repeat(18,minmax(0,1fr))}
+@media (max-width:760px){.vgrid.narrow{grid-template-columns:repeat(9,minmax(0,1fr))}}
+.vc{border-radius:7px;border:1.5px solid var(--ok);background:var(--ok-t);padding:3px 4px 4px;text-align:center;font:600 15px Poppins,sans-serif;color:var(--ink);position:relative}
+.vc small{display:block;text-align:left;font:500 10px Inter,sans-serif;color:var(--muted)}
+.vc.bad{border-color:var(--bad);background:var(--bad-t)}
+.vc.bad::after{content:"✗";position:absolute;top:1px;right:4px;font-size:11px;color:var(--bad)}
+.score{font:600 clamp(24px,4vw,32px) Poppins,sans-serif;text-align:center;margin:12px 0 2px}
+.score.ok{color:var(--ok)} .score.bad{color:var(--bad)}
+.checks{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}
+.checks li{display:flex;gap:8px;align-items:flex-start;font-size:15px}
+.checks .ic{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;margin-top:2px}
+.checks .ic.ok{background:var(--ok-t);color:var(--ok)} .checks .ic.bad{background:var(--bad-t);color:var(--bad)}
+
+/* alpha */
+.alpha-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.alpha-val{font:600 24px Poppins,sans-serif;min-width:110px}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.counts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media (max-width:640px){.counts{grid-template-columns:1fr}}
+.counts .card{padding:12px 14px}
+.counts .n{font:600 26px Poppins,sans-serif}
+.counts .wrong{font-size:14px;color:var(--ink2)}
+
+/* limits */
+.lim{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:700px){.lim{grid-template-columns:1fr}}
+.lim .hd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.lim .hd b{font:600 28px Poppins,sans-serif;color:var(--d)}
+.lim .row{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:center;padding:3px 0;font-size:16px}
+.lim .row span:first-child{color:var(--muted)}
+.lim s{color:var(--bad);text-decoration-thickness:1.5px}
+
+/* bosons */
+.ladders{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.ladders{grid-template-columns:1fr}}
+.ladders h4{margin:0 0 6px;font-size:17px}
+.etag{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-weight:600;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.ladders svg{width:100%;height:auto;display:block}
+
+/* summary */
+.sum{list-style:none;padding:0;margin:0;display:grid;gap:12px;max-width:760px}
+.sum li{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow);font:500 17px Poppins,sans-serif}
+.sum .k{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:15px}
+.flow{margin-top:14px;color:var(--ink2)}
+.dl{display:flex;flex-wrap:wrap;gap:12px}
+.dl a{display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top">Pauli &amp; the Periodic Table <span>· Topic 8</span></a>
+    <button class="icon-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Sections ▾</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#video">Video</a></li>
+      <li><a href="#pauli">Pauli</a></li>
+      <li><a href="#madelung">Madelung</a></li>
+      <li><a href="#builder">Atom builder</a></li>
+      <li><a href="#table">Table</a></li>
+      <li><a href="#periodicity">Periodicity</a></li>
+      <li><a href="#validation">NIST</a></li>
+      <li><a href="#parameter">α study</a></li>
+      <li><a href="#limits">Limits</a></li>
+      <li><a href="#bosons">Fermions/bosons</a></li>
+      <li><a href="#interpretation">Section 8</a></li>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#downloads">Downloads</a></li>
+    </ul>
+    <button class="icon-btn" id="themeBtn" aria-label="Switch colour theme" title="Switch light / dark">◐</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <svg viewBox="0 0 160 160" aria-hidden="true">
+      <g fill="none" stroke="var(--line2)" stroke-width="1"><circle cx="80" cy="80" r="26"/><circle cx="80" cy="80" r="44"/><circle cx="80" cy="80" r="62"/></g>
+      <circle cx="80" cy="80" r="12" fill="var(--card2)" stroke="var(--line2)"/>
+      <circle cx="80" cy="54" r="4" fill="var(--s)"/><circle cx="80" cy="106" r="4" fill="var(--s)"/>
+      <circle cx="118" cy="66" r="4" fill="var(--p)"/><circle cx="45" cy="100" r="4" fill="var(--p)"/>
+      <circle cx="38" cy="66" r="4" fill="var(--d)"/><circle cx="135" cy="105" r="4" fill="var(--d)"/>
+      <circle cx="68" cy="19" r="4" fill="var(--f)"/><circle cx="96" cy="141" r="4" fill="var(--f)"/>
+    </svg>
+    <h1>The Pauli Principle and the Periodic Table</h1>
+    <div class="pill">AI-Assisted Physics Simulation · Topic 8</div>
+    <p class="members"><strong>Group members:</strong> Manal Almalawi, Nayla Almuraee, Asayel Alghamdi, Joud Alzahrani, Yara Alamri, Albatool Alattas, Shaden Alharthi</p>
+    <div class="legend-spdf" aria-label="Colour key"><span><i class="dot" style="background:var(--s)"></i>s</span><span><i class="dot" style="background:var(--p)"></i>p</span><span><i class="dot" style="background:var(--d)"></i>d</span><span><i class="dot" style="background:var(--f)"></i>f</span></div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1 VIDEO -->
+<section class="sec" id="video"><div class="wrap">
+  <h2><span class="num">1</span> Explanation video</h2><div class="underline"></div>
+  <div class="card video-card">
+    <video id="vid" controls preload="metadata" playsinline poster="assets/poster.jpg">
+      <source src="assets/Pauli_Periodic_Table.mp4" type="video/mp4">
+      Your browser cannot play this video. <a href="assets/Pauli_Periodic_Table.mp4">Download it</a> instead.
+    </video>
+    <div class="chapters" id="chapters" aria-label="Video chapters"></div>
+  </div>
+</div></section>
+
+<!-- 2 PAULI -->
+<section class="sec" id="pauli"><div class="wrap">
+  <h2><span class="num">2</span> The Pauli exclusion principle</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 0 — Setup and plotting style</h3>
+<p><strong>Physics background:</strong> The Pauli exclusion principle says that no two electrons in an atom can have the same four quantum numbers. So each orbital holds at most two electrons (spin up and spin down), and a subshell holds at most 2(2l + 1) electrons: 2 for s, 6 for p, 10 for d and 14 for f. This forces electrons to fill higher subshells, which creates the repeating pattern of the periodic table.</p></div>
+  <div class="stack" style="margin-top:16px">
+    <div class="qn">
+      <div class="card" style="border-left-color:var(--s)"><div class="sym">n</div><div class="what">shell</div><div class="vals">1, 2, 3, …</div></div>
+      <div class="card" style="border-left-color:var(--p)"><div class="sym">l</div><div class="what">subshell</div><div class="vals">0 … n − 1</div></div>
+      <div class="card" style="border-left-color:var(--d)"><div class="sym">m<sub>l</sub></div><div class="what">orbital</div><div class="vals">−l … +l</div></div>
+      <div class="card" style="border-left-color:var(--f)"><div class="sym">m<sub>s</sub></div><div class="what">spin</div><div class="vals">+½ or −½</div></div>
+    </div>
+    <div class="card">
+      <p style="text-align:center;margin:0;font:600 18px Poppins,sans-serif">No two electrons in an atom can share all four quantum numbers</p>
+      <p class="note" style="text-align:center;margin:4px 0 0">One orbital: n = 1, l = 0, m<sub>l</sub> = 0</p>
+      <div class="orbital-ex">
+        <div class="qtag">(1, 0, 0, +½)<small>spin up</small></div>
+        <div class="bigbox" aria-label="one orbital holding two electrons with opposite spins"><svg width="34" height="40" viewBox="0 0 34 40" aria-hidden="true"><g stroke="var(--s)" stroke-width="3" fill="var(--s)" stroke-linecap="round"><line x1="10" y1="36" x2="10" y2="8"/><path d="M4 13 L10 4 L16 13Z" stroke-width="1"/><line x1="24" y1="4" x2="24" y2="32"/><path d="M18 27 L24 36 L30 27Z" stroke-width="1"/></g></svg></div>
+        <div class="qtag">(1, 0, 0, −½)<small>spin down</small></div>
+      </div>
+      <p class="note" style="text-align:center">One orbital holds at most two electrons, with opposite spins.</p>
+    </div>
+    <div class="card">
+      <div class="formula">capacity = 2(2l + 1)</div>
+      <div id="capRows"></div>
+      <p class="note" style="margin:8px 0 0">Each orbital holds 2 electrons, and a subshell has 2l + 1 orbitals.</p>
+    </div>
+  </div>
+  <div class="nb-text"><h3 class="nb-h">Section 1 — Physical parameters</h3>
+<p><strong>Physics background:</strong> This section explains the basic things we use to study atoms and their electrons. We looked at 36 elements, from hydrogen (H) to krypton (Kr). Electrons are arranged in four types of subshells, and each type has a limit on how many electrons it can hold:</p>
+<ul><li>s: 2 electrons</li><li>p: 6 electrons</li><li>d: 10 electrons</li><li>f: 14 electrons</li></ul>
+<p>We also learned the symbols of the elements, found the noble gases, and noticed two elements that don't follow the normal pattern: chromium (Cr) and copper (Cu).</p></div>
+  <details class="nb-code"><summary>Notebook code · Cell 2 — Imports and plotting style</summary><pre><code># Cell 2 — Imports and plotting style
+# We only use NumPy (numbers/arrays), pandas (tables) and Matplotlib (plots).
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# One colour palette used by every figure, so all plots look consistent.
+COLORS = {
+    &quot;background&quot;: &quot;#FAFAF7&quot;,   # off-white page colour
+    &quot;text&quot;:       &quot;#333333&quot;,   # dark grey for text and axes
+    &quot;blue&quot;:       &quot;#4C72B0&quot;,
+    &quot;teal&quot;:       &quot;#44AA99&quot;,
+    &quot;orange&quot;:     &quot;#DD8452&quot;,
+    &quot;purple&quot;:     &quot;#8172B3&quot;,
+    &quot;grid&quot;:       &quot;#BBBBBB&quot;,   # light grey for gridlines
+}
+
+# Font sizes (in points) for the different parts of a figure.
+FONT = {&quot;title&quot;: 15, &quot;label&quot;: 12, &quot;tick&quot;: 11, &quot;legend&quot;: 11}
+
+# Colours used when styling the pandas table in Section 4.
+TABLE_HEADER_COLOR = &quot;#E8EEF4&quot;     # light blue-grey header
+TABLE_EXCEPTION_COLOR = &quot;#FCEBD9&quot;  # soft orange for exception rows
+
+# Apply all settings once; every later figure inherits them automatically.
+plt.rcParams.update({
+    &quot;figure.facecolor&quot;: COLORS[&quot;background&quot;],
+    &quot;axes.facecolor&quot;:   COLORS[&quot;background&quot;],
+    &quot;savefig.facecolor&quot;: COLORS[&quot;background&quot;],
+    &quot;text.color&quot;:       COLORS[&quot;text&quot;],
+    &quot;axes.labelcolor&quot;:  COLORS[&quot;text&quot;],
+    &quot;axes.edgecolor&quot;:   COLORS[&quot;text&quot;],
+    &quot;xtick.color&quot;:      COLORS[&quot;text&quot;],
+    &quot;ytick.color&quot;:      COLORS[&quot;text&quot;],
+    &quot;axes.titlesize&quot;:   FONT[&quot;title&quot;],
+    &quot;axes.labelsize&quot;:   FONT[&quot;label&quot;],
+    &quot;xtick.labelsize&quot;:  FONT[&quot;tick&quot;],
+    &quot;ytick.labelsize&quot;:  FONT[&quot;tick&quot;],
+    &quot;legend.fontsize&quot;:  FONT[&quot;legend&quot;],
+    &quot;axes.grid&quot;:        True,          # show gridlines
+    &quot;grid.color&quot;:       COLORS[&quot;grid&quot;],
+    &quot;grid.linewidth&quot;:   0.6,           # thin lines
+    &quot;grid.alpha&quot;:       0.3,           # very light
+    &quot;axes.spines.top&quot;:   False,        # remove the top border
+    &quot;axes.spines.right&quot;: False,        # remove the right border
+    &quot;figure.figsize&quot;:   (9, 4.5),      # default figure size in inches
+    &quot;figure.dpi&quot;:       110,           # resolution on screen
+})
+
+print(&quot;Style loaded.&quot;)</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">Style loaded.</pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 4 — Parameters of the model</summary><pre><code># Cell 4 — Parameters of the model
+Z_MAX = 36   # we study the neutral atoms Z = 1 ... 36 (H to Kr)
+N_MAX = 7    # largest principal quantum number n we allow
+L_MAX = 3    # largest orbital quantum number l we allow (l = 3 is &quot;f&quot;)
+
+# Spectroscopic letter for each value of l.
+SUBSHELL_LETTERS = {0: &quot;s&quot;, 1: &quot;p&quot;, 2: &quot;d&quot;, 3: &quot;f&quot;}
+
+
+def subshell_capacity(l):
+    &quot;&quot;&quot;Maximum number of electrons in a subshell with orbital number l.
+
+    There are (2l + 1) values of m_l, and the Pauli principle allows two
+    electrons (spin up and spin down) in each, so the capacity is 2(2l + 1).
+    &quot;&quot;&quot;
+    return 2 * (2 * l + 1)
+
+
+# Capacity for every l we use: {0: 2, 1: 6, 2: 10, 3: 14}
+CAPACITY = {l: subshell_capacity(l) for l in SUBSHELL_LETTERS}
+
+# Chemical symbols; SYMBOLS[Z - 1] is the element with atomic number Z.
+SYMBOLS = [&quot;H&quot;, &quot;He&quot;, &quot;Li&quot;, &quot;Be&quot;, &quot;B&quot;, &quot;C&quot;, &quot;N&quot;, &quot;O&quot;, &quot;F&quot;, &quot;Ne&quot;,
+           &quot;Na&quot;, &quot;Mg&quot;, &quot;Al&quot;, &quot;Si&quot;, &quot;P&quot;, &quot;S&quot;, &quot;Cl&quot;, &quot;Ar&quot;,
+           &quot;K&quot;, &quot;Ca&quot;, &quot;Sc&quot;, &quot;Ti&quot;, &quot;V&quot;, &quot;Cr&quot;, &quot;Mn&quot;, &quot;Fe&quot;, &quot;Co&quot;, &quot;Ni&quot;,
+           &quot;Cu&quot;, &quot;Zn&quot;, &quot;Ga&quot;, &quot;Ge&quot;, &quot;As&quot;, &quot;Se&quot;, &quot;Br&quot;, &quot;Kr&quot;]
+
+# Z_MAX can be anything from 1 up to the number of symbols we have (36).
+assert 1 &lt;= Z_MAX &lt;= len(SYMBOLS), f&quot;Z_MAX must be between 1 and {len(SYMBOLS)}&quot;
+
+# Noble gases up to Kr, used for the shorthand notation &quot;[Ar] ...&quot;.
+NOBLE_GASES = {2: &quot;He&quot;, 10: &quot;Ne&quot;, 18: &quot;Ar&quot;, 36: &quot;Kr&quot;}
+
+# Known exceptions for Z &lt;= 36. Each entry OVERWRITES the Aufbau result
+# for the listed (n, l) subshells.  (3, 2) = 3d and (4, 0) = 4s.
+EXCEPTIONS = {
+    24: {(3, 2): 5,  (4, 0): 1},   # Cr: [Ar] 3d5 4s1
+    29: {(3, 2): 10, (4, 0): 1},   # Cu: [Ar] 3d10 4s1
+}</code></pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 5 — Test: capacities and symbols</summary><pre><code># Cell 5 — Test: capacities and symbols
+for l, letter in SUBSHELL_LETTERS.items():
+    print(f&quot;l = {l} ({letter}): capacity = {CAPACITY[l]}&quot;)
+
+print()
+print(&quot;Symbols available:&quot;, len(SYMBOLS), f&quot;({SYMBOLS[0]} to {SYMBOLS[-1]})&quot;)
+print(&quot;Elements studied :&quot;, Z_MAX, f&quot;({SYMBOLS[0]} to {SYMBOLS[Z_MAX - 1]})&quot;)
+assert len(SYMBOLS) &gt;= Z_MAX   # there must be a symbol for every Z we study
+assert CAPACITY == {0: 2, 1: 6, 2: 10, 3: 14}</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">l = 0 (s): capacity = 2
+l = 1 (p): capacity = 6
+l = 2 (d): capacity = 10
+l = 3 (f): capacity = 14
+
+Symbols available: 36 (H to Kr)
+Elements studied : 36 (H to Kr)</pre></details>
+</div></section>
+
+<!-- 3 MADELUNG -->
+<section class="sec" id="madelung"><div class="wrap">
+  <h2><span class="num">3</span> The Madelung (n + l) filling order</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 2 — The Madelung (n + l) filling order</h3>
+<p><strong>Physics background:</strong> The Madelung rule shows the order in which electrons fill subshells using (n + l). The subshell with the lower (n + l) value fills first. If two subshells have the same value, the one with the lower n fills first. This rule helps us predict electron configurations.</p></div>
+  <div class="card stack" style="margin-top:14px">
+    <div class="rulebox"><div class="r1">Fill subshells in order of increasing n + l</div><div class="note">if n + l is tied, the lower n fills first</div></div>
+    <div class="chips" id="madStrip" style="justify-content:center"></div>
+    <div class="example">
+      <div class="card"><span style="color:var(--s)">4s:</span>&nbsp; 4 + 0 = 4</div>
+      <div class="card"><span style="color:var(--d)">3d:</span>&nbsp; 3 + 2 = 5</div>
+    </div>
+    <p class="conclude">4 &lt; 5, so 4s fills before 3d</p>
+    <p class="note" style="text-align:center;margin:0">Tie: 3p and 4s both have n + l = 4 → 3p (lower n) comes first.</p>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <p class="panel-title">Full Madelung order used in the model (n ≤ 7, l ≤ 3), with n + l above each subshell</p>
+    <div class="chips small" id="madFull"></div>
+  </div>
+  <details class="nb-code"><summary>Notebook code · Cell 7 — Madelung order</summary><pre><code># Cell 7 — Madelung order
+def subshell_label(n, l):
+    &quot;&quot;&quot;Return the usual name of a subshell, e.g. (3, 2) -&gt; &quot;3d&quot;.&quot;&quot;&quot;
+    return f&quot;{n}{SUBSHELL_LETTERS[l]}&quot;
+
+
+def madelung_key(subshell):
+    &quot;&quot;&quot;Sorting key for the Madelung rule.
+
+    Python sorts tuples element by element: first by n + l,
+    and if two subshells have the same n + l, by n (lower n first).
+    &quot;&quot;&quot;
+    n, l = subshell
+    return (n + l, n)
+
+
+def madelung_order(n_max, l_max):
+    &quot;&quot;&quot;List of all allowed (n, l) pairs, sorted by the Madelung rule.&quot;&quot;&quot;
+    subshells = []
+    for n in range(1, n_max + 1):
+        # l can only go from 0 to n - 1 (and we stop at l_max).
+        for l in range(0, min(n - 1, l_max) + 1):
+            subshells.append((n, l))
+    return sorted(subshells, key=madelung_key)
+
+
+# Computed once and reused everywhere below.
+MADELUNG_ORDER = madelung_order(N_MAX, L_MAX)</code></pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 8 — Test: print the order and a small table of n, l, n + l</summary><pre><code># Cell 8 — Test: print the order and a small table of n, l, n + l
+first_12 = [subshell_label(n, l) for (n, l) in MADELUNG_ORDER[:12]]
+print(&quot; &quot;.join(first_12))
+assert &quot; &quot;.join(first_12) == &quot;1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s&quot;
+
+order_table = pd.DataFrame({
+    &quot;Subshell&quot;: [subshell_label(n, l) for (n, l) in MADELUNG_ORDER],
+    &quot;n&quot;:        [n for (n, l) in MADELUNG_ORDER],
+    &quot;l&quot;:        [l for (n, l) in MADELUNG_ORDER],
+    &quot;n + l&quot;:    [n + l for (n, l) in MADELUNG_ORDER],
+})
+print()
+print(order_table.to_string(index=False))</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s
+
+Subshell  n  l  n + l
+      1s  1  0      1
+      2s  2  0      2
+      2p  2  1      3
+      3s  3  0      3
+      3p  3  1      4
+      4s  4  0      4
+      3d  3  2      5
+      4p  4  1      5
+      5s  5  0      5
+      4d  4  2      6
+      5p  5  1      6
+      6s  6  0      6
+      4f  4  3      7
+      5d  5  2      7
+      6p  6  1      7
+      7s  7  0      7
+      5f  5  3      8
+      6d  6  2      8
+      7p  7  1      8
+      6f  6  3      9
+      7d  7  2      9
+      7f  7  3     10</pre></details>
+</div></section>
+
+<!-- 4 BUILDER -->
+<section class="sec" id="builder"><div class="wrap">
+  <h2><span class="num">4</span> Interactive atom builder: H to Kr</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 3 — Filling the subshells (Aufbau)</h3>
+<p><strong>Physics background:</strong> In this part we studied how electrons are distributed in the subshells according to the Aufbau principle. Electrons fill the lower energy levels first and each subshell has a specific number of electrons. We also noticed some exceptions such as chromium and copper, because their electrons rearrange to reach a more stable state.</p></div>
+  <div class="card" style="margin-top:14px">
+    <div class="controls">
+      <button class="btn" id="prevBtn" aria-label="Previous element">◀ Previous</button>
+      <button class="btn primary" id="playBtn" aria-pressed="false">▶ Play</button>
+      <button class="btn" id="nextBtn" aria-label="Next element">Next ▶</button>
+      <div class="slider-row"><label for="zSlider" class="note" style="white-space:nowrap">Z = <b id="zLabel" style="color:var(--ink)">1</b></label><input type="range" id="zSlider" min="1" max="36" value="1" step="1"></div>
+      <label class="toggle"><input type="checkbox" id="excToggle" checked> Cr &amp; Cu exceptions</label>
+    </div>
+    <div class="builder">
+      <div>
+        <p class="panel-title">Shell diagram</p>
+        <svg id="shellSvg" viewBox="0 0 320 320" role="img" aria-label="Shell diagram"></svg>
+      </div>
+      <div>
+        <p class="panel-title">Orbital boxes on an energy axis</p>
+        <svg id="orbSvg" viewBox="0 0 420 340" role="img" aria-label="Orbital diagram"></svg>
+      </div>
+    </div>
+    <div class="ptable-wrap"><div class="ptable" id="ptable" role="group" aria-label="Periodic table, Z = 1 to 36"></div></div>
+    <div class="ptlegend"><span><i class="sw" style="background:var(--s-t);border:1px solid var(--s)"></i>s-block</span><span><i class="sw" style="background:var(--p-t);border:1px solid var(--p)"></i>p-block</span><span><i class="sw" style="background:var(--d-t);border:1px solid var(--d)"></i>d-block</span><span><b style="color:var(--bad)">*</b> exception (Cr, Cu)</span><span>Faded = not yet built</span></div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card" style="background:var(--card2)" aria-live="polite">
+        <div class="info-head"><div class="bigsym" id="iSym">H</div><div><div class="nm" id="iName">Hydrogen</div><div class="note" id="iMeta">Z = 1 · s-block</div></div></div>
+        <dl class="kv">
+          <dt>Full configuration</dt><dd id="iFull"></dd>
+          <dt>Noble-gas shorthand</dt><dd id="iShort"></dd>
+          <dt>NIST SRD 111</dt><dd id="iNist"></dd>
+          <dt>Comparison</dt><dd id="iBadge"></dd>
+        </dl>
+      </div>
+      <div class="card" style="background:var(--card2)">
+        <p class="panel-title">What changed from Z − 1</p>
+        <p id="iChange" style="margin:0;font-size:15.5px"></p>
+        <div id="excBox"></div>
+      </div>
+    </div>
+  </div>
+  <details class="nb-code"><summary>Notebook code · Cell 10 — Filling functions</summary><pre><code># Cell 10 — Filling functions
+def fill_aufbau(Z, order=MADELUNG_ORDER):
+    &quot;&quot;&quot;Put Z electrons into the subshells in the given order.
+
+    Each subshell takes as many electrons as it can (its capacity),
+    until no electrons are left.  Returns {(n, l): electrons}.
+    &quot;&quot;&quot;
+    config = {}
+    remaining = Z                                  # electrons still to place
+    for (n, l) in order:
+        if remaining == 0:
+            break                                  # all electrons placed
+        electrons = min(remaining, CAPACITY[l])    # fill as much as allowed
+        config[(n, l)] = electrons
+        remaining -= electrons
+    return config
+
+
+def electron_configuration(Z, order=MADELUNG_ORDER, apply_exceptions=True):
+    &quot;&quot;&quot;Ground-state configuration of the neutral atom Z.
+
+    Returns the pair (configuration, is_exception), where is_exception
+    is True when an entry of EXCEPTIONS was applied.
+    &quot;&quot;&quot;
+    config = fill_aufbau(Z, order)
+    is_exception = False
+    if apply_exceptions and Z in EXCEPTIONS:
+        config.update(EXCEPTIONS[Z])               # overwrite those subshells
+        is_exception = True
+    # Remove any subshell that ended up empty (0 electrons).
+    config = {sub: e for sub, e in config.items() if e &gt; 0}
+    return config, is_exception</code></pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 11 — Test: a few elements</summary><pre><code># Cell 11 — Test: a few elements
+for Z in [11, 24, 26, 29, 36]:          # Na, Cr, Fe, Cu, Kr
+    config, is_exc = electron_configuration(Z)
+    print(f&quot;{SYMBOLS[Z - 1]:&gt;2} (Z = {Z}): {config}   exception = {is_exc}&quot;)
+
+print()
+config_cr_pure, _ = electron_configuration(24, apply_exceptions=False)
+print(&quot;Cr with pure Aufbau:&quot;, config_cr_pure)</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">Na (Z = 11): {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 1}   exception = False
+Cr (Z = 24): {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 2, (3, 1): 6, (4, 0): 1, (3, 2): 5}   exception = True
+Fe (Z = 26): {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 2, (3, 1): 6, (4, 0): 2, (3, 2): 6}   exception = False
+Cu (Z = 29): {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 2, (3, 1): 6, (4, 0): 1, (3, 2): 10}   exception = True
+Kr (Z = 36): {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 2, (3, 1): 6, (4, 0): 2, (3, 2): 10, (4, 1): 6}   exception = False
+
+Cr with pure Aufbau: {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 2, (3, 1): 6, (4, 0): 2, (3, 2): 4}</pre></details>
+</div></section>
+
+<!-- 5 TABLE -->
+<section class="sec" id="table"><div class="wrap">
+  <h2><span class="num">5</span> Configuration table, Z = 1 to 36</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 4 — Writing the configurations and the summary table</h3>
+<h4 class="nb-h">4.1 Text formatting</h4>
+<p><strong>Physics background:</strong> In this part, the code shows electron configurations from hydrogen (Z = 1) to krypton (Z = 36). We used two ways, the full way and the short way using noble gases, to show the outer electrons clearly.</p></div>
+  <details class="nb-code"><summary>Notebook code · Cell 13 — Formatting functions</summary><pre><code># Cell 13 — Formatting functions
+def format_full(config, sort_by_n=True):
+    &quot;&quot;&quot;Turn {(n, l): electrons} into text like &quot;1s2 2s2 2p6&quot;.
+
+    sort_by_n=True writes the subshells sorted by n, then l (usual notation);
+    sort_by_n=False keeps the order in which they were filled.
+    &quot;&quot;&quot;
+    subshells = sorted(config) if sort_by_n else list(config)
+    parts = [f&quot;{subshell_label(n, l)}{config[(n, l)]}&quot; for (n, l) in subshells]
+    return &quot; &quot;.join(parts)
+
+
+def noble_gas_core(Z):
+    &quot;&quot;&quot;Atomic number of the largest noble gas with Z_core &lt; Z (0 if none).&quot;&quot;&quot;
+    core = 0
+    for Z_gas in NOBLE_GASES:
+        if Z_gas &lt; Z:
+            core = Z_gas
+    return core
+
+
+def format_shorthand(Z, apply_exceptions=True, sort_by_n=True):
+    &quot;&quot;&quot;Configuration in noble-gas shorthand, e.g. &quot;[Ar] 3d5 4s1&quot;.&quot;&quot;&quot;
+    config, _ = electron_configuration(Z, apply_exceptions=apply_exceptions)
+    Z_core = noble_gas_core(Z)
+    if Z_core == 0:                       # H and He have no noble-gas core
+        return format_full(config, sort_by_n)
+
+    core_config, _ = electron_configuration(Z_core)
+    # Keep only the electrons that are NOT part of the core.
+    outer = {}
+    for sub, e in config.items():
+        extra = e - core_config.get(sub, 0)
+        if extra &gt; 0:
+            outer[sub] = extra
+    return f&quot;[{NOBLE_GASES[Z_core]}] &quot; + format_full(outer, sort_by_n)</code></pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 14 — Test: full and shorthand notation</summary><pre><code># Cell 14 — Test: full and shorthand notation
+for Z in [11, 24, 26, 29, 36]:          # Na, Cr, Fe, Cu, Kr
+    config, _ = electron_configuration(Z)
+    print(f&quot;{SYMBOLS[Z - 1]:&gt;2}: {format_full(config):&lt;40} {format_shorthand(Z)}&quot;)</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">Na: 1s2 2s2 2p6 3s1                          [Ne] 3s1
+Cr: 1s2 2s2 2p6 3s2 3p6 3d5 4s1              [Ar] 3d5 4s1
+Fe: 1s2 2s2 2p6 3s2 3p6 3d6 4s2              [Ar] 3d6 4s2
+Cu: 1s2 2s2 2p6 3s2 3p6 3d10 4s1             [Ar] 3d10 4s1
+Kr: 1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6         [Ar] 3d10 4s2 4p6</pre></details>
+  <div class="nb-text"><h4 class="nb-h">4.2 Configuration table for Z = 1 to 36</h4>
+<p><strong>Physics background:</strong> In this part, we put the results in a table and used orange for the elements that break the Aufbau rule. The result shows 34 elements follow the rule and only two elements break it, chromium (Cr) and copper (Cu). This happens because atoms are more stable when the 3d shell is half full or completely full.</p></div>
+  <div class="tbl-wrap" style="margin-top:12px"><table class="cfg" id="cfgTable"><thead><tr><th>Z</th><th>Element</th><th>Full configuration</th><th>Shorthand</th><th>Exception</th><th>Pure Aufbau would give</th></tr></thead><tbody></tbody></table></div>
+  <p class="hint">Click an element symbol to open it in the atom builder.</p>
+  <details class="nb-code"><summary>Notebook code · Cell 16 — Build and style the configuration table</summary><pre><code># Cell 16 — Build and style the configuration table
+rows = []
+for Z in range(1, Z_MAX + 1):
+    config, is_exc = electron_configuration(Z)
+    rows.append({
+        &quot;Z&quot;: Z,
+        &quot;Element&quot;: SYMBOLS[Z - 1],
+        &quot;Full configuration&quot;: format_full(config),
+        &quot;Shorthand&quot;: format_shorthand(Z),
+        &quot;Exception&quot;: &quot;YES&quot; if is_exc else &quot;&quot;,
+        # Only filled for the exceptions: what the plain rule would predict.
+        &quot;Pure Aufbau would give&quot;: format_shorthand(Z, apply_exceptions=False) if is_exc else &quot;&quot;,
+    })
+config_table = pd.DataFrame(rows)
+
+
+def highlight_exceptions(row):
+    &quot;&quot;&quot;Soft-orange, bold style for exception rows; no style otherwise.&quot;&quot;&quot;
+    if row[&quot;Exception&quot;] == &quot;YES&quot;:
+        style = f&quot;background-color: {TABLE_EXCEPTION_COLOR}; font-weight: bold&quot;
+    else:
+        style = &quot;&quot;
+    return [style] * len(row)
+
+
+styled_table = (
+    config_table.style
+    .apply(highlight_exceptions, axis=1)              # colour row by row
+    .set_table_styles([{&quot;selector&quot;: &quot;th&quot;,              # header cells
+                        &quot;props&quot;: [(&quot;background-color&quot;, TABLE_HEADER_COLOR),
+                                  (&quot;color&quot;, COLORS[&quot;text&quot;])]}])
+    .hide(axis=&quot;index&quot;)                                # Z column is enough
+)</code></pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 17 — Test: size of the table, the exception rows, then the full table</summary><pre><code># Cell 17 — Test: size of the table, the exception rows, then the full table
+print(&quot;Table shape:&quot;, config_table.shape, &quot;(rows, columns)&quot;)
+print()
+print(config_table[config_table[&quot;Exception&quot;] == &quot;YES&quot;].to_string(index=False))
+styled_table   # the last line of a cell is displayed by Jupyter</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">Table shape: (36, 6) (rows, columns)
+
+ Z Element           Full configuration     Shorthand Exception Pure Aufbau would give
+24      Cr  1s2 2s2 2p6 3s2 3p6 3d5 4s1  [Ar] 3d5 4s1       YES           [Ar] 3d4 4s2
+29      Cu 1s2 2s2 2p6 3s2 3p6 3d10 4s1 [Ar] 3d10 4s1       YES           [Ar] 3d9 4s2</pre></details>
+</div></section>
+
+<!-- 6 PERIODICITY -->
+<section class="sec" id="periodicity"><div class="wrap">
+  <h2><span class="num">6</span> Periodicity: outer-shell electrons</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 6 — Parameter study</h3>
+<p><strong>Physics background:</strong> Here we looked at how the atomic number (Z) is connected to the number of electrons in the outer shell. The number rises from 1 to 8 across periods 2 and 3, then drops to 1 after each noble gas. In period 4 it stays at 2 from Ca to Zn, because the 3d electrons belong to the inner shell (n = 3). It dips to 1 at Cr and Cu, where one 4s electron moves into 3d. This repeating pattern is what makes the periodic table organized.</p>
+<h4 class="nb-h">6.1 Outer-shell electrons</h4></div>
+  <div class="card chart-card" style="margin-top:12px">
+    <p class="chart-title">Figure 1: Electrons in the highest occupied shell</p>
+    <div class="legend" id="fig1Legend"></div>
+    <div class="chart" id="fig1"></div>
+    <p class="hint">Hover or use ← → on the focused chart; click or press Enter to open that element in the atom builder.</p>
+  </div>
+  <div class="caption"><div class="nb-text"><p><em>Figure 1 caption:</em> The bottom line of the graph shows the atomic number (Z), and the side line shows the number of outer-shell electrons. The purple dashed lines mark the noble gases (He, Ne, Ar and Kr). Cr and Cu are special cases because each one has only one electron in its outer shell.</p></div></div>
+  <details class="nbfig"><summary>Notebook figure (Figure 1, Matplotlib)</summary><img src="assets/fig1.png" alt="Notebook Figure 1: outer-shell electrons against atomic number" loading="lazy"></details>
+  <details class="nb-code"><summary>Notebook code · Cell 22 — Figure 1: outer-shell electrons against Z</summary><pre><code># Cell 22 — Figure 1: outer-shell electrons against Z
+def outer_shell_electrons(config):
+    &quot;&quot;&quot;Electrons in the highest occupied shell n.&quot;&quot;&quot;
+    n_highest = max(n for (n, l) in config)
+    return sum(e for (n, l), e in config.items() if n == n_highest)
+
+
+Z_values = np.arange(1, Z_MAX + 1)
+outer = np.array([outer_shell_electrons(electron_configuration(Z)[0]) for Z in Z_values])
+
+fig, ax = plt.subplots()
+ax.plot(Z_values, outer, marker=&quot;o&quot;, color=COLORS[&quot;blue&quot;], label=&quot;Outer-shell electrons&quot;)
+
+# Dashed vertical lines at the noble gases.
+first_line = True
+for Z_gas, gas in NOBLE_GASES.items():
+    if Z_gas &gt; Z_MAX:
+        continue                          # this gas is outside the studied range
+    ax.axvline(Z_gas, linestyle=&quot;--&quot;, color=COLORS[&quot;purple&quot;], linewidth=1,
+               label=&quot;Noble gas&quot; if first_line else None)   # only one legend entry
+    first_line = False
+    ax.text(Z_gas, outer.max() + 0.6, gas, ha=&quot;center&quot;, color=COLORS[&quot;purple&quot;])
+
+# Labels on the two exceptions (only if they are inside the studied range).
+for Z_exc in EXCEPTIONS:
+    if Z_exc &gt; Z_MAX:
+        continue
+    ax.annotate(SYMBOLS[Z_exc - 1], xy=(Z_exc, outer[Z_exc - 1]),
+                xytext=(Z_exc, outer[Z_exc - 1] + 2.2), ha=&quot;center&quot;,
+                color=COLORS[&quot;orange&quot;], fontweight=&quot;bold&quot;,
+                arrowprops={&quot;arrowstyle&quot;: &quot;-&gt;&quot;, &quot;color&quot;: COLORS[&quot;orange&quot;]})
+
+ax.set_xlabel(&quot;Atomic number Z (dimensionless)&quot;)
+ax.set_ylabel(&quot;Outer-shell electrons (electrons)&quot;)
+ax.set_title(&quot;Figure 1: Electrons in the highest occupied shell&quot;)
+ax.set_ylim(0, outer.max() + 1.5)
+ax.legend(loc=&quot;upper left&quot;, bbox_to_anchor=(1.01, 1))   # legend outside, right
+fig.tight_layout()
+plt.show()</code></pre></details>
+</div></section>
+
+<!-- 7 VALIDATION -->
+<section class="sec" id="validation"><div class="wrap">
+  <h2><span class="num">7</span> Validation against NIST SRD 111</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 5 — Validation against NIST SRD 111</h3>
+<p><strong>Physics background:</strong> In this part, we check the accuracy of the electron configuration model by comparing the results to NIST data for 36 elements. The Madelung rule alone gave 34 correct answers out of 36, an accuracy of 94.4%. The two incorrect elements were chromium (Cr) and copper (Cu). After adding these two elements as exceptions, all 36 results became correct (100%). The 100% is reached only because Cr and Cu were added by hand; the rule alone gives 34/36.</p>
+<p>The reference data below are in NIST notation: an exponent of 1 is not written (e.g. <code>4s</code> means <code>4s1</code>).</p></div>
+  <div class="grid2" style="margin-top:12px">
+    <div class="card"><p class="panel-title">Rule: pure Madelung (no exceptions)</p><div class="vgrid" id="vgPure"></div><div id="vsPure"></div></div>
+    <div class="card"><p class="panel-title">Rule: Madelung + exceptions (Cr, Cu)</p><div class="vgrid" id="vgExc"></div><div id="vsExc"></div></div>
+  </div>
+  <h3 class="nb-h">Printed check results from the notebook</h3>
+  <pre class="nb-out">Pure Madelung         : 34/36 match (94.4 %)   wrong: [&#x27;Cr&#x27;, &#x27;Cu&#x27;]
+Madelung + exceptions : 36/36 match (100.0 %)   wrong: []
+
+Check passed: electron total = Z for every element.
+Check passed: no subshell exceeds 2(2l + 1).</pre>
+  <div class="card" style="margin-top:12px"><p class="panel-title">The same checks, recomputed live in your browser</p><ul class="checks" id="liveChecks"></ul></div>
+  <details class="nb-code"><summary>Notebook code · Cell 19 — Reference data (NIST SRD 111, ground-state configurations)</summary><pre><code># Cell 19 — Reference data (NIST SRD 111, ground-state configurations)
+# Source: NIST Standard Reference Database 111,
+# &quot;Ground Levels and Ionization Energies for the Neutral Atoms&quot;.
+NIST_SRD111 = {
+    1: &quot;1s&quot;,                2: &quot;1s2&quot;,
+    3: &quot;[He] 2s&quot;,           4: &quot;[He] 2s2&quot;,
+    5: &quot;[He] 2s2 2p&quot;,       6: &quot;[He] 2s2 2p2&quot;,
+    7: &quot;[He] 2s2 2p3&quot;,      8: &quot;[He] 2s2 2p4&quot;,
+    9: &quot;[He] 2s2 2p5&quot;,     10: &quot;[He] 2s2 2p6&quot;,
+    11: &quot;[Ne] 3s&quot;,         12: &quot;[Ne] 3s2&quot;,
+    13: &quot;[Ne] 3s2 3p&quot;,     14: &quot;[Ne] 3s2 3p2&quot;,
+    15: &quot;[Ne] 3s2 3p3&quot;,    16: &quot;[Ne] 3s2 3p4&quot;,
+    17: &quot;[Ne] 3s2 3p5&quot;,    18: &quot;[Ne] 3s2 3p6&quot;,
+    19: &quot;[Ar] 4s&quot;,         20: &quot;[Ar] 4s2&quot;,
+    21: &quot;[Ar] 3d 4s2&quot;,     22: &quot;[Ar] 3d2 4s2&quot;,
+    23: &quot;[Ar] 3d3 4s2&quot;,    24: &quot;[Ar] 3d5 4s&quot;,
+    25: &quot;[Ar] 3d5 4s2&quot;,    26: &quot;[Ar] 3d6 4s2&quot;,
+    27: &quot;[Ar] 3d7 4s2&quot;,    28: &quot;[Ar] 3d8 4s2&quot;,
+    29: &quot;[Ar] 3d10 4s&quot;,    30: &quot;[Ar] 3d10 4s2&quot;,
+    31: &quot;[Ar] 3d10 4s2 4p&quot;,  32: &quot;[Ar] 3d10 4s2 4p2&quot;,
+    33: &quot;[Ar] 3d10 4s2 4p3&quot;, 34: &quot;[Ar] 3d10 4s2 4p4&quot;,
+    35: &quot;[Ar] 3d10 4s2 4p5&quot;, 36: &quot;[Ar] 3d10 4s2 4p6&quot;,
+}
+
+# Change to &quot;YES&quot; only after the group has checked every entry against NIST.
+REFERENCE_CHECKED_BY_GROUP = &quot;NO&quot;
+
+# Reverse look-ups: letter -&gt; l, and gas symbol -&gt; Z.
+LETTER_TO_L = {letter: l for l, letter in SUBSHELL_LETTERS.items()}
+GAS_TO_Z = {symbol: Z for Z, symbol in NOBLE_GASES.items()}
+
+
+def expand_reference(text):
+    &quot;&quot;&quot;Turn NIST text like &quot;[Ar] 3d5 4s&quot; into {(n, l): electrons}.&quot;&quot;&quot;
+    config = {}
+    text = text.replace(&quot;]&quot;, &quot;] &quot;)             # also accept &quot;[Ar]3d5&quot;
+    for token in text.split():
+        if token.startswith(&quot;[&quot;):
+            # Noble-gas core: replace &quot;[Ar]&quot; by Ar&#x27;s own reference configuration.
+            gas = token.strip(&quot;[]&quot;)
+            config.update(expand_reference(NIST_SRD111[GAS_TO_Z[gas]]))
+        else:
+            n = int(token[0])                   # e.g. &quot;3d10&quot; -&gt; n = 3
+            l = LETTER_TO_L[token[1]]           #             -&gt; l = 2
+            exponent = token[2:]                #             -&gt; &quot;10&quot;
+            config[(n, l)] = int(exponent) if exponent else 1   # no exponent = 1
+    return config
+
+
+print(&quot;Reference checked by group:&quot;, REFERENCE_CHECKED_BY_GROUP)
+print(&quot;Example: expand_reference(&#x27;[Ar] 3d5 4s&#x27;) =&quot;, expand_reference(&quot;[Ar] 3d5 4s&quot;))</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">Reference checked by group: NO
+Example: expand_reference(&#x27;[Ar] 3d5 4s&#x27;) = {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 2, (3, 1): 6, (3, 2): 5, (4, 0): 1}</pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 20 — Compare the model with the reference</summary><pre><code># Cell 20 — Compare the model with the reference
+def count_matches(order=MADELUNG_ORDER, apply_exceptions=True):
+    &quot;&quot;&quot;Return the list of Z values where the model equals the reference.&quot;&quot;&quot;
+    matches = []
+    for Z in range(1, Z_MAX + 1):
+        model, _ = electron_configuration(Z, order, apply_exceptions)
+        if model == expand_reference(NIST_SRD111[Z]):   # dicts: same keys and values
+            matches.append(Z)
+    return matches
+
+
+for label, use_exc in [(&quot;Pure Madelung&quot;, False), (&quot;Madelung + exceptions&quot;, True)]:
+    matches = count_matches(apply_exceptions=use_exc)
+    wrong = [SYMBOLS[Z - 1] for Z in range(1, Z_MAX + 1) if Z not in matches]
+    percent = 100 * len(matches) / Z_MAX
+    print(f&quot;{label:&lt;22}: {len(matches)}/{Z_MAX} match ({percent:.1f} %)   wrong: {wrong}&quot;)
+
+# Physical consistency checks on the final configurations.
+for Z in range(1, Z_MAX + 1):
+    config, _ = electron_configuration(Z)
+    assert sum(config.values()) == Z, f&quot;Z = {Z}: electron total is not Z&quot;
+    for (n, l), e in config.items():
+        assert e &lt;= CAPACITY[l], f&quot;Z = {Z}: {subshell_label(n, l)} exceeds its capacity&quot;
+print()
+print(&quot;Check passed: electron total = Z for every element.&quot;)
+print(&quot;Check passed: no subshell exceeds 2(2l + 1).&quot;)</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">Pure Madelung         : 34/36 match (94.4 %)   wrong: [&#x27;Cr&#x27;, &#x27;Cu&#x27;]
+Madelung + exceptions : 36/36 match (100.0 %)   wrong: []
+
+Check passed: electron total = Z for every element.
+Check passed: no subshell exceeds 2(2l + 1).</pre></details>
+</div></section>
+
+<!-- 8 PARAMETER -->
+<section class="sec" id="parameter"><div class="wrap">
+  <h2><span class="num">8</span> Parameter study: order by n + α·l</h2><div class="underline"></div>
+  <div class="nb-text"><h4 class="nb-h">6.2 Changing the ordering rule: n + α·l</h4></div>
+  <div class="card" style="margin-top:8px">
+    <div class="alpha-head">
+      <div class="alpha-val" id="alphaVal">α = 1.00</div>
+      <div class="slider-row"><label for="alphaSlider" class="sr">α</label><span class="note">0</span><input type="range" id="alphaSlider" min="0" max="2" step="0.05" value="1"><span class="note">2</span></div>
+      <div class="presets" role="group" aria-label="α presets"><button class="btn" data-a="0">0</button><button class="btn" data-a="0.5">0.5</button><button class="btn" data-a="1">1</button><button class="btn" data-a="1.5">1.5</button></div>
+    </div>
+    <p class="panel-title" style="margin-top:14px">Filling order for this α (first 12 subshells, value of n + α·l above each; red outline = different from Madelung)</p>
+    <div class="chips" id="alphaChips"></div>
+    <div class="counts">
+      <div class="card"><div class="note">Rule only</div><div class="n" id="cntPure"></div><div class="wrong" id="wrongPure"></div></div>
+      <div class="card"><div class="note">Rule + Cr/Cu exceptions</div><div class="n" id="cntExc"></div><div class="wrong" id="wrongExc"></div></div>
+    </div>
+  </div>
+  <div class="card chart-card" style="margin-top:16px">
+    <p class="chart-title">Figure 2: Agreement with the reference as a function of α</p>
+    <div class="legend" id="fig2Legend"></div>
+    <div class="chart" id="fig2"></div>
+    <p class="hint">Click the chart (or press Enter on it) to set α. ← → move along α.</p>
+  </div>
+  <div class="caption"><div class="nb-text"><p><em>Figure 2 caption:</em> This figure shows how changing α affects the number of correct electron configurations out of 36 elements. When α ≤ 0.50, only 26–27 elements are correct, because 3d fills before 4s. When 0.55 ≤ α ≤ 1.00 (shaded area), the rule gives 34/36 correct results, and 36/36 after adding the Cr and Cu exceptions. When α &gt; 1, 3s fills before 2p, so configurations go wrong from boron (Z = 5) onward and only about 6 elements are correct. The dashed line at α = 1 represents the Madelung rule.</p></div></div>
+  <details class="nbfig"><summary>Notebook figure (Figure 2, Matplotlib)</summary><img src="assets/fig2.png" alt="Notebook Figure 2: agreement with NIST against alpha" loading="lazy"></details>
+  <details class="nb-code"><summary>Notebook code · Cell 25 — Figure 2: sweep the ordering rule n + alpha * l</summary><pre><code># Cell 25 — Figure 2: sweep the ordering rule n + alpha * l
+def general_order(alpha, n_max=N_MAX, l_max=L_MAX):
+    &quot;&quot;&quot;Subshells sorted by (n + alpha*l), ties broken by lower n.
+
+    alpha = 1 gives back the Madelung rule.  round() removes tiny
+    floating-point errors so that exact ties are recognised as ties.
+    &quot;&quot;&quot;
+    subshells = [(n, l) for n in range(1, n_max + 1)
+                 for l in range(0, min(n - 1, l_max) + 1)]
+    return sorted(subshells, key=lambda s: (round(s[0] + alpha * s[1], 10), s[0]))
+
+
+# Sanity check: alpha = 1 must reproduce the Madelung order.
+assert general_order(1.0) == MADELUNG_ORDER
+
+alphas = np.round(np.arange(0, 2.0001, 0.05), 2)     # 0.00, 0.05, ..., 2.00
+correct_pure = []    # matches using only the ordering rule
+correct_exc = []     # matches using the rule + the Cr/Cu exceptions
+for alpha in alphas:
+    order = general_order(alpha)
+    correct_pure.append(len(count_matches(order, apply_exceptions=False)))
+    correct_exc.append(len(count_matches(order, apply_exceptions=True)))
+correct_pure = np.array(correct_pure)
+correct_exc = np.array(correct_exc)
+
+fig, ax = plt.subplots()
+ax.plot(alphas, correct_exc, marker=&quot;o&quot;, color=COLORS[&quot;teal&quot;], label=&quot;Rule + Cr/Cu exceptions&quot;)
+ax.plot(alphas, correct_pure, marker=&quot;s&quot;, markersize=4, color=COLORS[&quot;blue&quot;], label=&quot;Rule only&quot;)
+
+# Shade the alpha range where all Z_MAX elements are correct.
+all_ok = alphas[correct_exc == Z_MAX]
+if len(all_ok) &gt; 0:
+    ax.axvspan(all_ok.min(), all_ok.max(), color=COLORS[&quot;teal&quot;], alpha=0.15,
+               label=f&quot;All {Z_MAX} correct ({all_ok.min():.2f} ≤ α ≤ {all_ok.max():.2f})&quot;)
+ax.axvline(1.0, linestyle=&quot;--&quot;, color=COLORS[&quot;orange&quot;], label=&quot;α = 1 (Madelung)&quot;)
+
+ax.set_xlabel(&quot;Weight α in the ordering rule n + α·l (dimensionless)&quot;)
+ax.set_ylabel(f&quot;Elements agreeing with NIST (out of {Z_MAX})&quot;)
+ax.set_title(&quot;Figure 2: Agreement with the reference as a function of α&quot;)
+ax.set_ylim(0, Z_MAX + 2)
+ax.legend(loc=&quot;center right&quot;)
+plt.show()
+
+print(f&quot;alpha values where all {Z_MAX} are correct:&quot;, [float(a) for a in all_ok])</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">alpha values where all 36 are correct: [0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]</pre></details>
+  <div class="nb-text"><h4 class="nb-h">6.3 Simple n-ordering compared with Madelung</h4></div>
+  <div class="nb-text"><p><strong>Physics background:</strong> Since there is only one electron in a hydrogen atom, its energy depends only on n, so we might expect the subshells to fill in the order of n. In atoms with several electrons, the inner electrons shield part of the nucleus's attraction from the outer electrons. An electron in an s subshell can get closer to the nucleus than an electron in a d subshell, so it is less shielded and has lower energy. This is why 4s fills before 3d. The correct order is given by the Madelung rule, where each subshell is labelled by n + l, and the lower value of n + l fills first. Both rules were tested on elements 1–36 and compared with NIST.</p></div>
+  <div class="card" style="margin-top:12px">
+    <p style="text-align:center;font:600 19px Poppins,sans-serif;margin:0 0 10px">α = 0: order by n only</p>
+    <div class="chips" id="nOrderChips" style="justify-content:center"></div>
+    <div class="vgrid narrow" id="vgN" style="margin-top:14px"></div>
+    <div id="vsN"></div>
+  </div>
+  <div class="card chart-card" style="margin-top:16px">
+    <p class="chart-title">Figure 3: Elements predicted wrongly by each ordering rule</p>
+    <div class="legend" id="fig3Legend"></div>
+    <div class="chart" id="fig3"></div>
+    <p class="hint">Hover a pair of bars (or focus the chart and use ← →) for details.</p>
+  </div>
+  <div class="caption"><div class="nb-text"><p><em>Figure 3 caption:</em> The bars show how many electrons are in the wrong place for each element.</p>
+<ul><li>Orange: filling by n only</li><li>Blue: Madelung rule</li></ul>
+<p>Elements not shown in the chart are correct under both rules. Filling by n alone fails for 10 elements (K to Ni), because it puts 3d before 4s. Madelung fails only for Cr and Cu (1 electron each), the known exceptions.</p></div></div>
+  <details class="nbfig"><summary>Notebook figure (Figure 3, Matplotlib)</summary><img src="assets/fig3.png" alt="Notebook Figure 3: misplaced electrons per element" loading="lazy"></details>
+  <details class="nb-code"><summary>Notebook code · Cell 28 — Figure 3: n-ordering (n first, then l) versus Madelung</summary><pre><code># Cell 28 — Figure 3: n-ordering (n first, then l) versus Madelung
+# Sorting the (n, l) tuples directly gives 1s 2s 2p 3s 3p 3d 4s 4p ...
+N_ORDER = sorted(MADELUNG_ORDER)
+
+
+def misplaced_electrons(model, reference):
+    &quot;&quot;&quot;Number of electrons sitting in the wrong subshell.
+
+    Each misplaced electron is counted twice (missing in one subshell,
+    extra in another), so we divide the total difference by 2.
+    &quot;&quot;&quot;
+    all_subshells = set(model) | set(reference)
+    diff = sum(abs(model.get(s, 0) - reference.get(s, 0)) for s in all_subshells)
+    return diff // 2
+
+
+wrong_n = {}         # Z -&gt; misplaced electrons for the n-ordering
+wrong_madelung = {}  # Z -&gt; misplaced electrons for pure Madelung
+for Z in range(1, Z_MAX + 1):
+    ref = expand_reference(NIST_SRD111[Z])
+    m_n = misplaced_electrons(electron_configuration(Z, N_ORDER, False)[0], ref)
+    m_mad = misplaced_electrons(electron_configuration(Z, MADELUNG_ORDER, False)[0], ref)
+    if m_n &gt; 0:
+        wrong_n[Z] = m_n
+    if m_mad &gt; 0:
+        wrong_madelung[Z] = m_mad
+
+print(&quot;Wrong with n-ordering :&quot;, [SYMBOLS[Z - 1] for Z in wrong_n], f&quot;({len(wrong_n)} elements)&quot;)
+print(&quot;Wrong with Madelung   :&quot;, [SYMBOLS[Z - 1] for Z in wrong_madelung], f&quot;({len(wrong_madelung)} elements)&quot;)
+
+# Bar chart: two bars per element, side by side.
+Z_wrong = sorted(set(wrong_n) | set(wrong_madelung))
+x = np.arange(len(Z_wrong))
+h_n = np.array([wrong_n.get(Z, 0) for Z in Z_wrong])
+h_mad = np.array([wrong_madelung.get(Z, 0) for Z in Z_wrong])
+width = 0.4
+
+fig, ax = plt.subplots()
+if len(Z_wrong) == 0:
+    # For small Z_MAX both rules are correct, so there are no bars to draw.
+    ax.text(0.5, 0.5, f&quot;No element is predicted wrongly for Z ≤ {Z_MAX}&quot;,
+            ha=&quot;center&quot;, va=&quot;center&quot;, transform=ax.transAxes)
+else:
+    ax.bar(x - width / 2, h_n, width, color=COLORS[&quot;orange&quot;], label=&quot;n-ordering (n, then l)&quot;)
+    ax.bar(x + width / 2, h_mad, width, color=COLORS[&quot;blue&quot;], label=&quot;Madelung (n + l, then n)&quot;)
+
+    # Element symbol above each pair of bars.
+    for xi, Z, top in zip(x, Z_wrong, np.maximum(h_n, h_mad)):
+        ax.text(xi, top + 0.08, SYMBOLS[Z - 1], ha=&quot;center&quot;, fontweight=&quot;bold&quot;)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels([str(Z) for Z in Z_wrong])
+    ax.set_ylim(0, max(h_n.max(), h_mad.max()) + 0.8)
+    ax.legend(loc=&quot;upper left&quot;)
+
+ax.set_xlabel(&quot;Atomic number Z of the elements that go wrong (dimensionless)&quot;)
+ax.set_ylabel(&quot;Misplaced electrons (electrons)&quot;)
+ax.set_title(&quot;Figure 3: Elements predicted wrongly by each ordering rule&quot;)
+plt.show()</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">Wrong with n-ordering : [&#x27;K&#x27;, &#x27;Ca&#x27;, &#x27;Sc&#x27;, &#x27;Ti&#x27;, &#x27;V&#x27;, &#x27;Cr&#x27;, &#x27;Mn&#x27;, &#x27;Fe&#x27;, &#x27;Co&#x27;, &#x27;Ni&#x27;] (10 elements)
+Wrong with Madelung   : [&#x27;Cr&#x27;, &#x27;Cu&#x27;] (2 elements)</pre></details>
+</div></section>
+
+<!-- 9 LIMITS -->
+<section class="sec" id="limits"><div class="wrap">
+  <h2><span class="num">9</span> Limits of the model</h2><div class="underline"></div>
+  <div class="nb-text"><h4 class="nb-h">8.2 Limitations of the model</h4>
+<p><em>(to be written by the group)</em></p></div>
+  <div class="lim" id="limCards" style="margin-top:12px"></div>
+  <p style="text-align:center;font:600 18px Poppins,sans-serif;margin:18px 0 4px">For Z &gt; 36 the simple rule has more exceptions.</p>
+  <p style="text-align:center;margin:0" class="sub">Orbital energies shift with Z and electron–electron repulsion matters, so the Madelung rule is empirical.</p>
+  <p class="note" style="text-align:center">NIST values checked against NIST SRD 111 (Atomic Spectra Database ionization-energy table): Pd [Kr] 4d<sup>10</sup>, Ag [Kr] 4d<sup>10</sup> 5s.</p>
+</div></section>
+
+<!-- 10 BOSONS -->
+<section class="sec" id="bosons"><div class="wrap">
+  <h2><span class="num">10</span> Extension: fermions versus bosons</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 7 — Extension: fermions versus bosons</h3>
+<p>Equally spaced levels <span class="math">E<sub>k</sub> = (k + ½) ħω</span>, with <span class="math">k = 0, 1, 2, …</span> Spin-½ fermions: at most 2 particles per level. Bosons: no limit.</p>
+<p><strong>Physics background:</strong> Particles fill energy levels starting from the lowest. Due to the Pauli principle, each level can hold at most two fermions while bosons have no limit.</p></div>
+  <div class="card" style="margin-top:12px">
+    <div class="controls"><div class="slider-row"><label for="nSlider" class="note" style="white-space:nowrap">N = <b id="nLabel" style="color:var(--ink)">10</b> particles</label><input type="range" id="nSlider" min="1" max="40" value="10" step="1"></div></div>
+    <div class="ladders" style="margin-top:12px">
+      <div><h4 style="color:var(--s)">Fermions (spin ½)</h4><div class="etag" id="eF"></div><svg id="ladF" role="img"></svg></div>
+      <div><h4 style="color:var(--f)">Bosons (integer spin)</h4><div class="etag" id="eB"></div><svg id="ladB" role="img"></svg></div>
+    </div>
+    <p class="note" style="margin:8px 0 0">Levels E<sub>k</sub> = (k + ½)ħω. Fermions: at most 2 per level (↑↓). Bosons: no limit, so all sit in k = 0.</p>
+  </div>
+  <div class="card chart-card" style="margin-top:16px">
+    <p class="chart-title">Figure 4: Total ground-state energy against N</p>
+    <div class="legend" id="fig4Legend"></div>
+    <div class="chart" id="fig4"></div>
+    <p class="hint">Click the chart (or press Enter on it) to set N. ← → move along N.</p>
+  </div>
+  <div class="caption"><div class="nb-text"><p><em>Figure 4 caption:</em> Left: for N = 10 all bosons occupy the lowest level (k = 0) while fermions fill levels 0 to 4. Right: total ground-state energy (in units of ħω) versus N. Fermion energy increases approximately as N² while boson energy increases linearly. At N = 10 the energies are 25 ħω (fermions) and 5 ħω (bosons).</p></div></div>
+  <details class="nbfig"><summary>Notebook figure (Figure 4, Matplotlib)</summary><img src="assets/fig4.png" alt="Notebook Figure 4: fermions versus bosons" loading="lazy"></details>
+  <details class="nb-code"><summary>Notebook code · Cell 31 — Filling equally spaced levels</summary><pre><code># Cell 31 — Filling equally spaced levels
+N_LEVELS = 20   # enough levels for up to 40 fermions
+
+
+def level_energy(k):
+    &quot;&quot;&quot;Energy of level k in units of hbar*omega: E_k = k + 1/2.&quot;&quot;&quot;
+    return k + 0.5
+
+
+def fill_levels(N, max_per_level):
+    &quot;&quot;&quot;Put N particles into the lowest levels, at most max_per_level each.
+
+    Returns an array: occupation[k] = number of particles in level k.
+    &quot;&quot;&quot;
+    occupation = np.zeros(N_LEVELS, dtype=int)
+    remaining = N
+    for k in range(N_LEVELS):
+        if remaining == 0:
+            break
+        occupation[k] = min(remaining, max_per_level)
+        remaining -= occupation[k]
+    return occupation
+
+
+def total_energy(occupation):
+    &quot;&quot;&quot;Total energy (in hbar*omega) = sum over levels of n_k * E_k.&quot;&quot;&quot;
+    k = np.arange(len(occupation))
+    return np.sum(occupation * level_energy(k))
+
+
+FERMION_MAX = 2                          # spin 1/2: spin up + spin down
+
+
+def boson_max(N):
+    return N                             # no limit: all N can share a level
+
+
+N_EXAMPLE = 10
+occ_fermions = fill_levels(N_EXAMPLE, FERMION_MAX)
+occ_bosons = fill_levels(N_EXAMPLE, boson_max(N_EXAMPLE))
+E_fermions = total_energy(occ_fermions)
+E_bosons = total_energy(occ_bosons)
+print(f&quot;N = {N_EXAMPLE}: fermions E = {E_fermions} hbar*omega, bosons E = {E_bosons} hbar*omega&quot;)
+
+assert E_fermions == 25.0, &quot;fermion energy for N = 10 should be 25 hbar*omega&quot;
+assert E_bosons == 5.0, &quot;boson energy for N = 10 should be 5 hbar*omega&quot;
+print(&quot;Assertions passed.&quot;)</code></pre><div class="nb-out-label">Output</div><pre class="nb-out">N = 10: fermions E = 25.0 hbar*omega, bosons E = 5.0 hbar*omega
+Assertions passed.</pre></details>
+  <details class="nb-code"><summary>Notebook code · Cell 32 — Figure 4: occupations for N = 10 and total energy against N</summary><pre><code># Cell 32 — Figure 4: occupations for N = 10 and total energy against N
+N_values = np.arange(1, 21)
+E_f = np.array([total_energy(fill_levels(N, FERMION_MAX)) for N in N_values])
+E_b = np.array([total_energy(fill_levels(N, boson_max(N))) for N in N_values])
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.5))
+
+# Left panel: occupation of each level for N = 10 (first 7 levels shown).
+k_shown = np.arange(7)
+width = 0.4
+ax1.bar(k_shown - width / 2, occ_fermions[k_shown], width, color=COLORS[&quot;blue&quot;], label=&quot;Fermions (≤ 2 per level)&quot;)
+ax1.bar(k_shown + width / 2, occ_bosons[k_shown], width, color=COLORS[&quot;teal&quot;], label=&quot;Bosons (no limit)&quot;)
+ax1.set_xticks(k_shown)
+ax1.set_xlabel(&quot;Level index k (dimensionless)&quot;)
+ax1.set_ylabel(&quot;Occupation (particles)&quot;)
+ax1.set_title(f&quot;Occupation for N = {N_EXAMPLE}&quot;)
+ax1.legend()
+
+# Right panel: total ground-state energy against N.
+ax2.plot(N_values, E_f, marker=&quot;o&quot;, color=COLORS[&quot;blue&quot;], label=&quot;Fermions&quot;)
+ax2.plot(N_values, E_b, marker=&quot;s&quot;, color=COLORS[&quot;teal&quot;], label=&quot;Bosons&quot;)
+ax2.set_xticks(np.arange(0, 21, 2))      # whole numbers only
+ax2.set_xlabel(&quot;Number of particles N (particles)&quot;)
+ax2.set_ylabel(&quot;Total energy (ħω)&quot;)
+ax2.set_title(&quot;Total ground-state energy&quot;)
+ax2.legend()
+
+fig.suptitle(&quot;Figure 4: Fermions versus bosons on equally spaced levels&quot;, fontsize=FONT[&quot;title&quot;])
+fig.tight_layout()
+plt.show()</code></pre></details>
+</div></section>
+
+<!-- 11 SECTION 8 -->
+<section class="sec" id="interpretation"><div class="wrap">
+  <h2><span class="num">11</span> Interpretation, AI log and reflection</h2><div class="underline"></div>
+  <div class="nb-text"><h3 class="nb-h">Section 8 — Interpretation, limitations, AI log and references</h3></div>
+  <div class="nb-text"><h4 class="nb-h">8.1 Interpretation of the results</h4>
+<p><em>(to be written by the group)</em></p></div>
+  <div class="nb-text"><h4 class="nb-h">8.3 AI log</h4>
+<div class="tbl-wrap"><table class="nb-table"><thead><tr><th>#</th><th>Date</th><th>Tool</th><th>Prompt (summary)</th><th>What we used</th><th>What we changed / checked</th></tr></thead><tbody><tr><td data-label="#">&nbsp;</td><td data-label="Date">&nbsp;</td><td data-label="Tool">&nbsp;</td><td data-label="Prompt (summary)">&nbsp;</td><td data-label="What we used">&nbsp;</td><td data-label="What we changed / checked">&nbsp;</td></tr><tr><td data-label="#">&nbsp;</td><td data-label="Date">&nbsp;</td><td data-label="Tool">&nbsp;</td><td data-label="Prompt (summary)">&nbsp;</td><td data-label="What we used">&nbsp;</td><td data-label="What we changed / checked">&nbsp;</td></tr><tr><td data-label="#">&nbsp;</td><td data-label="Date">&nbsp;</td><td data-label="Tool">&nbsp;</td><td data-label="Prompt (summary)">&nbsp;</td><td data-label="What we used">&nbsp;</td><td data-label="What we changed / checked">&nbsp;</td></tr></tbody></table></div></div>
+  <div class="nb-text"><h4 class="nb-h">8.4 Reflection on using AI</h4>
+<p><em>(to be written by the group)</em></p></div>
+</div></section>
+
+<!-- 12 SUMMARY -->
+<section class="sec" id="summary"><div class="wrap">
+  <h2><span class="num">12</span> Summary</h2><div class="underline"></div>
+  <ol class="sum">
+    <li><span class="k" style="background:var(--s-t);color:var(--s)">1</span>The Pauli principle gives the capacities: 2, 6, 10, 14</li>
+    <li><span class="k" style="background:var(--p-t);color:var(--p)">2</span>The Madelung (n + l) rule gives the filling order</li>
+    <li><span class="k" style="background:var(--d-t);color:var(--d)">3</span>The shell structure gives the periodic table</li>
+  </ol>
+  <p class="flow">Pauli principle → Madelung order → periodic table</p>
+</div></section>
+
+<!-- 13 REFERENCES -->
+<section class="sec" id="references"><div class="wrap">
+  <h2><span class="num">13</span> References</h2><div class="underline"></div>
+  <div class="nb-text"><h4 class="nb-h">8.5 References</h4>
+<ol><li>W. C. Martin, A. Musgrove, S. Kotochigova, J. E. Sansonetti, <em>Ground Levels and Ionization Energies for the Neutral Atoms</em>, NIST Standard Reference Database 111. <a href="https://www.nist.gov/pml/ground-levels-and-ionization-energies-neutral-atoms" target="_blank" rel="noopener">https://www.nist.gov/pml/ground-levels-and-ionization-energies-neutral-atoms</a> (DOI: <a href="https://dx.doi.org/10.18434/T42P4C" target="_blank" rel="noopener">https://dx.doi.org/10.18434/T42P4C</a>)</li><li><em>(textbook — author, title, edition, publisher, year, chapter)</em></li></ol></div>
+</div></section>
+
+<!-- 14 DOWNLOADS -->
+<section class="sec" id="downloads"><div class="wrap">
+  <h2><span class="num">14</span> Downloads</h2><div class="underline"></div>
+  <div class="dl">
+    <a class="btn" href="assets/Topic8_Pauli_Periodic_Table.ipynb" download>⬇ Jupyter notebook (.ipynb)</a>
+    <a class="btn" href="assets/Pauli_Periodic_Table.mp4" download>⬇ Video (.mp4, about 18 MB)</a>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">The Pauli Principle and the Periodic Table · AI-Assisted Physics Simulation · Topic 8<br>All graphs on this page are computed live in the browser from the same model as the notebook.</div></footer>
+<div id="tip" role="tooltip"></div>
+
+<script>
+"use strict";
+/* ================= MODEL (same as the notebook) ================= */
+const L = ["s", "p", "d", "f"];
+const LCOL = ["var(--s)", "var(--p)", "var(--d)", "var(--f)"];
+const LTINT = ["var(--s-t)", "var(--p-t)", "var(--d-t)", "var(--f-t)"];
+const Z_MAX = 36;
+const cap = l => 2 * (2 * l + 1);
+const SYM = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr"];
+const NAME = ["Hydrogen","Helium","Lithium","Beryllium","Boron","Carbon","Nitrogen","Oxygen","Fluorine","Neon","Sodium","Magnesium","Aluminium","Silicon","Phosphorus","Sulfur","Chlorine","Argon","Potassium","Calcium","Scandium","Titanium","Vanadium","Chromium","Manganese","Iron","Cobalt","Nickel","Copper","Zinc","Gallium","Germanium","Arsenic","Selenium","Bromine","Krypton"];
+const NOBLE = {2: "He", 10: "Ne", 18: "Ar", 36: "Kr"};
+const EXC = {24: {"3d": 5, "4s": 1}, 29: {"3d": 10, "4s": 1}};
+const NIST = {1:"1s",2:"1s2",3:"[He] 2s",4:"[He] 2s2",5:"[He] 2s2 2p",6:"[He] 2s2 2p2",7:"[He] 2s2 2p3",8:"[He] 2s2 2p4",9:"[He] 2s2 2p5",10:"[He] 2s2 2p6",
+  11:"[Ne] 3s",12:"[Ne] 3s2",13:"[Ne] 3s2 3p",14:"[Ne] 3s2 3p2",15:"[Ne] 3s2 3p3",16:"[Ne] 3s2 3p4",17:"[Ne] 3s2 3p5",18:"[Ne] 3s2 3p6",
+  19:"[Ar] 4s",20:"[Ar] 4s2",21:"[Ar] 3d 4s2",22:"[Ar] 3d2 4s2",23:"[Ar] 3d3 4s2",24:"[Ar] 3d5 4s",25:"[Ar] 3d5 4s2",26:"[Ar] 3d6 4s2",27:"[Ar] 3d7 4s2",28:"[Ar] 3d8 4s2",
+  29:"[Ar] 3d10 4s",30:"[Ar] 3d10 4s2",31:"[Ar] 3d10 4s2 4p",32:"[Ar] 3d10 4s2 4p2",33:"[Ar] 3d10 4s2 4p3",34:"[Ar] 3d10 4s2 4p4",35:"[Ar] 3d10 4s2 4p5",36:"[Ar] 3d10 4s2 4p6"};
+/* Beyond Kr, checked against NIST SRD 111 (used only in "Limits of the model") */
+const NIST_EXTRA = {46: "[Kr] 4d10", 47: "[Kr] 4d10 5s"};
+
+const lab = (n, l) => n + L[l];
+const parse = k => [+k[0], L.indexOf(k[1])];
+function allSubshells() { const a = []; for (let n = 1; n <= 7; n++) for (let l = 0; l <= Math.min(n - 1, 3); l++) a.push([n, l]); return a; }
+const r10 = x => Math.round(x * 1e10) / 1e10;
+/* n + alpha*l, ties broken by lower n (Array.sort is stable, like Python's sorted) */
+function generalOrder(alpha) { return allSubshells().sort((a, b) => (r10(a[0] + alpha * a[1]) - r10(b[0] + alpha * b[1])) || (a[0] - b[0])); }
+const MADELUNG = generalOrder(1);
+const N_ORDER = allSubshells();            /* sorted by n, then l */
+
+function fill(Z, order = MADELUNG, exc = true) {
+  const c = {}; let r = Z;
+  for (const [n, l] of order) { if (!r) break; const e = Math.min(r, cap(l)); c[lab(n, l)] = e; r -= e; }
+  let isExc = false;
+  if (exc && EXC[Z]) { Object.assign(c, EXC[Z]); isExc = true; }
+  for (const k in c) if (!c[k]) delete c[k];
+  return { c, isExc };
+}
+const sortN = keys => keys.sort((a, b) => { const [na, la] = parse(a), [nb, lb] = parse(b); return na - nb || la - lb; });
+function fmtFull(c, html = true) { return sortN(Object.keys(c)).map(k => html ? `${k}<sup>${c[k]}</sup>` : k + c[k]).join(" "); }
+function core(Z) { let z = 0; for (const g of [2, 10, 18, 36]) if (g < Z) z = g; return z; }
+function fmtShort(c, Z, html = true) {
+  const z = core(Z); if (!z) return fmtFull(c, html);
+  const cc = fill(z).c, o = {};
+  for (const k in c) { const x = c[k] - (cc[k] || 0); if (x > 0) o[k] = x; }
+  return `[${NOBLE[z]}] ` + fmtFull(o, html);
+}
+function expandRef(text) {
+  const c = {};
+  for (const tok of text.replace("]", "] ").split(/\s+/).filter(Boolean)) {
+    if (tok.startsWith("[")) {
+      const gas = tok.replace(/[\[\]]/g, ""); const zg = +Object.keys(NOBLE).find(z => NOBLE[z] === gas);
+      Object.assign(c, expandRef(NIST[zg]));
+    } else { c[tok.slice(0, 2)] = tok.length > 2 ? +tok.slice(2) : 1; }
+  }
+  return c;
+}
+const same = (a, b) => { const ka = Object.keys(a), kb = Object.keys(b); return ka.length === kb.length && ka.every(k => a[k] === b[k]); };
+function countMatches(order = MADELUNG, exc = true) { const m = []; for (let Z = 1; Z <= Z_MAX; Z++) if (same(fill(Z, order, exc).c, expandRef(NIST[Z]))) m.push(Z); return m; }
+function misplaced(model, ref) { const s = new Set([...Object.keys(model), ...Object.keys(ref)]); let d = 0; for (const k of s) d += Math.abs((model[k] || 0) - (ref[k] || 0)); return Math.floor(d / 2); }
+function outerShell(c) { const nh = Math.max(...Object.keys(c).map(k => parse(k)[0])); let s = 0; for (const k in c) if (parse(k)[0] === nh) s += c[k]; return s; }
+function pos(Z) { if (Z === 1) return [1, 1]; if (Z === 2) return [1, 18]; if (Z <= 4) return [2, Z - 2]; if (Z <= 10) return [2, Z + 8]; if (Z <= 12) return [3, Z - 10]; if (Z <= 18) return [3, Z]; return [4, Z - 18]; }
+function block(Z) { const g = pos(Z)[1]; if (Z === 2 || g <= 2) return 0; if (g <= 12) return 2; return 1; }
+const nistHtml = s => s.replace(/(\d[spdf])(\d+)?/g, (m, a, e) => `${a}<sup>${e || 1}</sup>`);
+/* Fermions and bosons on equally spaced levels E_k = (k + 1/2) hbar*omega */
+const N_LEVELS = 20;
+function fillLevels(N, max) { const o = new Array(N_LEVELS).fill(0); let r = N; for (let k = 0; k < N_LEVELS && r; k++) { o[k] = Math.min(r, max); r -= o[k]; } return o; }
+const totalE = o => o.reduce((s, n, k) => s + n * (k + 0.5), 0);
+const Ef = N => totalE(fillLevels(N, 2)), Eb = N => totalE(fillLevels(N, N));
+
+/* ================= CHECKS (console.assert + visible list) ================= */
+const madStr = MADELUNG.slice(0, 12).map(([n, l]) => lab(n, l)).join(" ");
+const pureM = countMatches(MADELUNG, false), excM = countMatches(MADELUNG, true);
+const CHECKS = [
+  ["Madelung order starts 1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s", madStr === "1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s"],
+  ["Capacities 2(2l + 1) = 2, 6, 10, 14", [0, 1, 2, 3].map(cap).join() === "2,6,10,14"],
+  ["Pure Madelung: 34/36 agree with NIST (wrong: Cr, Cu)", pureM.length === 34 && !pureM.includes(24) && !pureM.includes(29)],
+  ["Madelung + exceptions: 36/36 agree with NIST", excM.length === 36],
+  ["α = 1 reproduces the Madelung order", generalOrder(1).join() === MADELUNG.join()],
+  ["Electron total = Z for every element", Array.from({length: 36}, (_, i) => i + 1).every(Z => Object.values(fill(Z).c).reduce((a, b) => a + b, 0) === Z)],
+  ["No subshell exceeds 2(2l + 1)", Array.from({length: 36}, (_, i) => i + 1).every(Z => Object.entries(fill(Z).c).every(([k, e]) => e <= cap(parse(k)[1])))],
+  ["N = 10: fermions E = 25 ħω", Ef(10) === 25],
+  ["N = 10: bosons E = 5 ħω", Eb(10) === 5],
+];
+for (const [t, ok] of CHECKS) console.assert(ok, "Check failed: " + t);
+
+/* ================= helpers ================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tip = $("#tip");
+function showTip(html, x, y) {
+  tip.innerHTML = html; tip.classList.add("on");
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let lx = x + 14, ly = y - h - 10;
+  if (lx + w > innerWidth - 8) lx = x - w - 14;
+  if (lx < 8) lx = 8;
+  if (ly < 8) ly = y + 14;
+  tip.style.left = lx + "px"; tip.style.top = ly + "px";
+}
+const hideTip = () => tip.classList.remove("on");
+function legend(el, items) {
+  el.innerHTML = items.map(it => `<span>${it.sw}${it.t}</span>`).join("");
+}
+const swLine = (c, dash = "", mark = "") => `<svg width="28" height="14" aria-hidden="true"><line x1="1" y1="7" x2="27" y2="7" stroke="${c}" stroke-width="2" ${dash ? `stroke-dasharray="${dash}"` : ""}/>${mark === "c" ? `<circle cx="14" cy="7" r="4" fill="${c}"/>` : mark === "s" ? `<rect x="10" y="3" width="8" height="8" fill="${c}"/>` : ""}</svg>`;
+const swMark = (c, shape) => `<svg width="16" height="16" aria-hidden="true">${shape === "c" ? `<circle cx="8" cy="8" r="5" fill="${c}"/>` : shape === "s" ? `<rect x="3" y="3" width="10" height="10" fill="${c}"/>` : shape === "d" ? `<path d="M8 1.5 L14.5 8 L8 14.5 L1.5 8Z" fill="${c}"/>` : shape === "ring" ? `<circle cx="8" cy="8" r="6" fill="none" stroke="${c}" stroke-width="1.6"/>` : `<rect x="1" y="2" width="14" height="12" rx="2" fill="${c}"/>`}</svg>`;
+function marker(shape, x, y, r, fill, extra = "") {
+  if (shape === "s") return `<rect x="${x - r}" y="${y - r}" width="${2 * r}" height="${2 * r}" fill="${fill}" ${extra}/>`;
+  if (shape === "d") return `<path d="M${x} ${y - r * 1.3} L${x + r * 1.3} ${y} L${x} ${y + r * 1.3} L${x - r * 1.3} ${y}Z" fill="${fill}" ${extra}/>`;
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" ${extra}/>`;
+}
+/* Axes frame. Returns scales and SVG markup. */
+function frame(o) {
+  const {W, H, m, x0, x1, y0, y1, xt, yt, xl, yl, xf = v => v, yf = v => v} = o;
+  const sx = v => m.l + (v - x0) / (x1 - x0) * (W - m.l - m.r);
+  const sy = v => H - m.b - (v - y0) / (y1 - y0) * (H - m.t - m.b);
+  let s = "";
+  for (const v of yt) s += `<line class="gl" x1="${m.l}" x2="${W - m.r}" y1="${sy(v)}" y2="${sy(v)}"/><text x="${m.l - 8}" y="${sy(v) + 4}" text-anchor="end">${yf(v)}</text>`;
+  for (const v of xt) s += `<text x="${sx(v)}" y="${H - m.b + 18}" text-anchor="middle">${xf(v)}</text>`;
+  s += `<line class="ax" x1="${m.l}" x2="${W - m.r}" y1="${H - m.b}" y2="${H - m.b}"/><line class="ax" x1="${m.l}" x2="${m.l}" y1="${m.t}" y2="${H - m.b}"/>`;
+  /* split a long axis title into two lines when it does not fit */
+  const two = (t, room) => { if (t.length * 6.8 <= room) return [t]; const mid = t.length / 2; let best = -1; for (let i = 0; i < t.length; i++) if (t[i] === " " && (best < 0 || Math.abs(i - mid) < Math.abs(best - mid))) best = i; return best < 0 ? [t] : [t.slice(0, best), t.slice(best + 1)]; };
+  const xs = two(xl, W - m.l - m.r), ys = two(yl, H - m.t - m.b);
+  s += xs.length === 1 ? `<text class="axis-title" x="${(m.l + W - m.r) / 2}" y="${H - 6}" text-anchor="middle">${xl}</text>`
+    : `<text class="axis-title" x="${(m.l + W - m.r) / 2}" y="${H - 18}" text-anchor="middle">${xs[0]}</text><text class="axis-title" x="${(m.l + W - m.r) / 2}" y="${H - 3}" text-anchor="middle">${xs[1]}</text>`;
+  s += ys.length === 1 ? `<text class="axis-title" transform="translate(14 ${(m.t + H - m.b) / 2}) rotate(-90)" text-anchor="middle">${yl}</text>`
+    : `<text class="axis-title" transform="translate(11 ${(m.t + H - m.b) / 2}) rotate(-90)" text-anchor="middle">${ys[0]}</text><text class="axis-title" transform="translate(25 ${(m.t + H - m.b) / 2}) rotate(-90)" text-anchor="middle">${ys[1]}</text>`;
+  return {sx, sy, s, plot: {l: m.l, t: m.t, r: W - m.r, b: H - m.b}};
+}
+function dims(el, minH = 260, ratio = 0.56, maxH = 420) {
+  const W = Math.max(300, Math.round(el.clientWidth || 600));
+  const H = Math.round(Math.min(maxH, Math.max(minH, W * ratio)));
+  const narrow = W < 520;
+  return {W, H, narrow};
+}
+/* Hover/keyboard layer: nearest point along x */
+function bindX(host, cfg) {
+  const svg = host.querySelector("svg"), ov = svg.querySelector(".ov"), xh = svg.querySelector(".xh");
+  let cur = cfg.start ?? -1;
+  const nearest = px => { let b = 0, bd = Infinity; for (let i = 0; i < cfg.n; i++) { const d = Math.abs(cfg.x(i) - px); if (d < bd) { bd = d; b = i; } } return b; };
+  const local = e => { const r = svg.getBoundingClientRect(); return (e.clientX - r.left) * svg.viewBox.baseVal.width / r.width; };
+  const show = i => {
+    cur = i; const x = cfg.x(i);
+    xh.setAttribute("x1", x); xh.setAttribute("x2", x); xh.style.display = "";
+    const r = svg.getBoundingClientRect(), k = r.width / svg.viewBox.baseVal.width;
+    showTip(cfg.tip(i), r.left + x * k, r.top + cfg.y(i) * k);
+  };
+  const hide = () => { xh.style.display = "none"; hideTip(); };
+  hide();
+  ov.addEventListener("pointermove", e => show(nearest(local(e))));
+  ov.addEventListener("pointerleave", hide);
+  ov.addEventListener("click", e => { const i = nearest(local(e)); cfg.pick && cfg.pick(i, true); });
+  svg.addEventListener("focus", () => show(cur < 0 ? (cfg.start ?? 0) : cur));
+  svg.addEventListener("blur", hide);
+  svg.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); const i = Math.max(0, Math.min(cfg.n - 1, (cur < 0 ? 0 : cur) + (e.key === "ArrowRight" ? 1 : -1))); show(i); if (cfg.live) cfg.pick(i, false); }
+    else if ((e.key === "Enter" || e.key === " ") && cfg.pick && cur >= 0) { e.preventDefault(); cfg.pick(cur, true); }
+    else if (e.key === "Escape") hide();
+  });
+}
+/* Replace chart markup, keeping keyboard focus if the old chart had it */
+function swap(host, html) {
+  const had = host.contains(document.activeElement);
+  host.innerHTML = html;
+  if (had) { const s = host.querySelector("svg"); s && s.focus({preventScroll: true}); }
+}
+
+/* ================= 1. VIDEO CHAPTERS ================= */
+const CHAPTERS = [["Pauli exclusion principle", 7], ["Madelung filling order", 37], ["Building atoms H to Kr", 62], ["Periodicity", 140], ["Validation against NIST", 160], ["Parameter study", 185], ["Limits of the model", 215], ["Fermions vs bosons", 229], ["Summary", 259]];
+const vid = $("#vid");
+const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+$("#chapters").innerHTML = CHAPTERS.map(([t, s], i) => `<button class="chap" data-t="${s}" aria-label="Jump to ${t} at ${mmss(s)}"><b>${mmss(s)}</b>${t}</button>`).join("");
+$("#chapters").addEventListener("click", e => {
+  const b = e.target.closest(".chap"); if (!b) return;
+  vid.currentTime = +b.dataset.t; vid.play().catch(() => {});
+});
+vid.addEventListener("timeupdate", () => {
+  let idx = -1; CHAPTERS.forEach(([, s], i) => { if (vid.currentTime >= s - 0.2) idx = i; });
+  document.querySelectorAll(".chap").forEach((b, i) => b.classList.toggle("now", i === idx));
+});
+
+/* ================= 2. PAULI capacity rows ================= */
+const arrowsSvg = (c, up = true, dn = true) => `<svg width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><g stroke="${c}" fill="${c}" stroke-width="2" stroke-linecap="round">${up ? `<line x1="6" y1="20" x2="6" y2="5"/><path d="M2.5 8 L6 2 L9.5 8Z" stroke-width=".5"/>` : ""}${dn ? `<line x1="14" y1="2" x2="14" y2="17"/><path d="M10.5 14 L14 20 L17.5 14Z" stroke-width=".5"/>` : ""}</g></svg>`;
+$("#capRows").innerHTML = [0, 1, 2, 3].map(l => `<div class="caprow"><div class="lab" style="color:${LCOL[l]}">${L[l]}<small>l = ${l}</small></div><div class="boxes" style="color:${LCOL[l]}">${Array.from({length: 2 * l + 1}, () => `<span class="ob" style="background:${LTINT[l]}">${arrowsSvg(LCOL[l])}</span>`).join("")}</div><div class="res">${2 * l + 1} orbital${l ? "s" : ""} → <b>${cap(l)}</b> electrons</div></div>`).join("");
+
+/* ================= 3. MADELUNG ================= */
+const chip = (n, l, top, cls = "") => `<div class="chip"><span class="top">${top}</span><span class="c l${l} ${cls}">${lab(n, l)}</span></div>`;
+$("#madStrip").innerHTML = MADELUNG.slice(0, 8).map(([n, l], i) => (i ? `<span class="arrow-sep" aria-hidden="true">›</span>` : "") + chip(n, l, `n + l = ${n + l}`, (n === 4 && l === 0) || (n === 3 && l === 2) ? "hl" : "")).join("");
+$("#madFull").innerHTML = MADELUNG.map(([n, l]) => chip(n, l, `${n + l}`)).join("");
+
+/* ================= 4. ATOM BUILDER ================= */
+const state = {Z: 1, exc: true, playing: null, prevZ: 0};
+const ORB = {"1s": [96, 312], "2s": [96, 262], "2p": [190, 244], "3s": [96, 194], "3p": [190, 176], "4s": [96, 128], "3d": [290, 106], "4p": [190, 68]};
+function buildPtable() {
+  let h = "";
+  for (let Z = 1; Z <= 36; Z++) {
+    const [r, g] = pos(Z), b = ["bs", "bp", "bd"][[0, 1, 2].indexOf(block(Z))];
+    h += `<button class="el ${b} ${EXC[Z] ? "exc" : ""}" style="grid-row:${r};grid-column:${g}" data-z="${Z}" aria-label="${NAME[Z - 1]}, Z = ${Z}${EXC[Z] ? ", exception" : ""}">${SYM[Z - 1]}<small>${Z}</small></button>`;
+  }
+  $("#ptable").innerHTML = h;
+  $("#ptable").addEventListener("click", e => { const b = e.target.closest(".el"); if (b) { stop(); setZ(+b.dataset.z); } });
+}
+function shellSvg(c, prev) {
+  const R = {1: 40, 2: 70, 3: 100, 4: 130}, cx = 160, cy = 160;
+  let s = "";
+  for (let n = 1; n <= 4; n++) s += `<circle cx="${cx}" cy="${cy}" r="${R[n]}" fill="none" stroke="var(--line2)" stroke-width="1"/><text x="${cx + R[n] * 0.72 + 4}" y="${cy + R[n] * 0.72 + 10}" font-size="9" fill="var(--muted)" font-family="Inter">n = ${n}</text>`;
+  s += `<circle cx="${cx}" cy="${cy}" r="24" fill="var(--card2)" stroke="var(--line2)"/><text x="${cx}" y="${cy + 6}" text-anchor="middle" font-family="Poppins" font-weight="600" font-size="16" fill="var(--ink)">${state.Z}+</text>`;
+  const rot = {1: -1.2, 2: -0.9, 3: -0.5, 4: -0.25};
+  for (let n = 1; n <= 4; n++) {
+    const list = [];
+    for (let l = 0; l < n && l < 4; l++) { const k = lab(n, l), e = c[k] || 0, gain = Math.max(0, e - (prev[k] || 0)); for (let i = 0; i < e; i++) list.push({l, isNew: i >= e - gain}); }
+    list.forEach((el, i) => {
+      const a = rot[n] + 2 * Math.PI * i / list.length, x = cx + R[n] * Math.cos(a), y = cy + R[n] * Math.sin(a);
+      const anim = el.isNew && !reduced;
+      if (anim) s += `<circle class="e-ring" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="none" stroke="${LCOL[el.l]}" stroke-width="2"/>`;
+      s += `<circle ${anim ? 'class="e-new"' : ""} cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${el.isNew ? 6 : 5}" fill="${LCOL[el.l]}" stroke="var(--card)" stroke-width="1.5"/>`;
+    });
+  }
+  return s;
+}
+function orbSvg(c) {
+  let s = `<line x1="34" y1="330" x2="34" y2="20" stroke="var(--line2)" stroke-width="1.5"/><path d="M29 26 L34 14 L39 26Z" fill="var(--line2)"/><text transform="translate(22 180) rotate(-90)" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="Inter">Energy</text>`;
+  for (const k in ORB) {
+    const [x, y] = ORB[k], [n, l] = parse(k), m = 2 * l + 1, e = c[k] || 0, col = LCOL[l];
+    s += `<text x="${x - 8}" y="${y + 15}" text-anchor="end" font-family="Poppins" font-weight="500" font-size="14" fill="${col}">${k}</text>`;
+    for (let i = 0; i < m; i++) {
+      const up = i < Math.min(e, m), dn = i < e - m, bx = x + i * 25;
+      s += `<rect x="${bx}" y="${y}" width="22" height="22" rx="4" fill="${e ? LTINT[l] : "var(--card)"}" stroke="${col}" stroke-width="1.3" opacity="${e ? 1 : 0.55}"/>`;
+      if (up) s += `<g stroke="${col}" fill="${col}" stroke-width="1.8" stroke-linecap="round"><line x1="${bx + 7}" y1="${y + 19}" x2="${bx + 7}" y2="${y + 7}"/><path d="M${bx + 4} ${y + 9} L${bx + 7} ${y + 3} L${bx + 10} ${y + 9}Z" stroke-width=".5"/></g>`;
+      if (dn) s += `<g stroke="${col}" fill="${col}" stroke-width="1.8" stroke-linecap="round"><line x1="${bx + 15}" y1="${y + 3}" x2="${bx + 15}" y2="${y + 15}"/><path d="M${bx + 12} ${y + 13} L${bx + 15} ${y + 19} L${bx + 18} ${y + 13}Z" stroke-width=".5"/></g>`;
+    }
+  }
+  return s;
+}
+function changeText(c, prev, Z) {
+  if (Z === 1) return "The first electron enters 1s.";
+  const keys = sortN([...new Set([...Object.keys(c), ...Object.keys(prev)])]);
+  const d = keys.map(k => [k, (c[k] || 0) - (prev[k] || 0)]).filter(([, v]) => v);
+  const gained = d.filter(([, v]) => v > 0), lost = d.filter(([, v]) => v < 0);
+  let t = `From ${SYM[Z - 2]} (Z = ${Z - 1}) to ${SYM[Z - 1]} (Z = ${Z}): `;
+  if (!lost.length && gained.length === 1 && gained[0][1] === 1) return t + `one electron is added to <b>${gained[0][0]}</b>.`;
+  t += d.map(([k, v]) => `<b>${v > 0 ? "+" : "−"}${Math.abs(v)}</b> in ${k}`).join(", ") + ".";
+  if (lost.length) t += ` One new electron is added and ${lost.map(([k, v]) => `${-v === 1 ? "one" : -v} ${k} electron${-v > 1 ? "s" : ""}`).join(", ")} move${lost[0][1] === -1 ? "s" : ""} into ${gained.map(([k]) => k).join(", ")}.`;
+  return t;
+}
+function excBox(Z) {
+  if (Z !== 24 && Z !== 29) return "";
+  const pure = fmtShort(fill(Z, MADELUNG, false).c, Z), nist = nistHtml(NIST[Z]);
+  const half = Z === 24;
+  const head = half ? "Chromium: exception, half-filled 3d subshell" : "Copper: exception, completely filled 3d subshell";
+  const body = half
+    ? "One 4s electron moves into 3d. Then each of the five 3d orbitals holds exactly one electron (3d<sup>5</sup>, half-filled), with all spins parallel, which is more stable than 3d<sup>4</sup> 4s<sup>2</sup>."
+    : "One 4s electron moves into 3d. Then all five 3d orbitals hold two electrons (3d<sup>10</sup>, completely filled), which is more stable than 3d<sup>9</sup> 4s<sup>2</sup>.";
+  const tog = state.exc ? `<p><b>Exceptions on:</b> the model uses ${nist}, the same as NIST.</p>` : `<p><b>Exceptions off:</b> the model gives ${pure}, which differs from NIST (${nist}).</p>`;
+  return `<div class="excbox"><h4>${head}</h4><p>Madelung predicts ${pure}; NIST gives ${nist}.</p><p>${body}</p>${tog}</div>`;
+}
+function setZ(Z, animate = true) {
+  Z = Math.max(1, Math.min(36, Z));
+  const prevCfg = Z > 1 ? fill(Z - 1, MADELUNG, state.exc).c : {};
+  state.prevZ = state.Z; state.Z = Z;
+  const {c, isExc} = fill(Z, MADELUNG, state.exc);
+  const showNew = animate && Math.abs(state.Z - state.prevZ) <= 1;
+  $("#shellSvg").innerHTML = shellSvg(c, showNew ? prevCfg : c);
+  $("#shellSvg").setAttribute("aria-label", `Shell diagram of ${NAME[Z - 1]}: nucleus +${Z}, electrons per shell ${[1, 2, 3, 4].map(n => Object.entries(c).filter(([k]) => parse(k)[0] === n).reduce((a, [, e]) => a + e, 0)).join(", ")}`);
+  $("#orbSvg").innerHTML = orbSvg(c);
+  $("#orbSvg").setAttribute("aria-label", `Orbital boxes of ${NAME[Z - 1]}: ${fmtFull(c, false)}`);
+  $("#zSlider").value = Z; $("#zLabel").textContent = Z;
+  $("#iSym").textContent = SYM[Z - 1]; $("#iSym").style.color = LCOL[block(Z)];
+  $("#iName").textContent = NAME[Z - 1];
+  $("#iMeta").textContent = `Z = ${Z} · ${L[block(Z)]}-block${EXC[Z] ? " · exception" : ""}`;
+  $("#iFull").innerHTML = fmtFull(c);
+  $("#iShort").innerHTML = fmtShort(c, Z);
+  $("#iNist").innerHTML = `${nistHtml(NIST[Z])} <span class="note">(NIST writes “${esc(NIST[Z])}”)</span>`;
+  const ok = same(c, expandRef(NIST[Z]));
+  $("#iBadge").innerHTML = ok ? `<span class="badge ok">✓ matches NIST</span>` : `<span class="badge bad">✗ differs from NIST</span>`;
+  $("#iChange").innerHTML = changeText(c, prevCfg, Z);
+  $("#excBox").innerHTML = excBox(Z);
+  document.querySelectorAll("#ptable .el").forEach(b => { const z = +b.dataset.z; b.classList.toggle("filled", z <= Z); b.classList.toggle("cur", z === Z); b.setAttribute("aria-pressed", z === Z); });
+  const pw = document.querySelector(".ptable-wrap"), pc = document.querySelector("#ptable .el.cur");
+  if (pw.scrollWidth > pw.clientWidth && pc) pw.scrollLeft = pc.offsetLeft - pw.clientWidth / 2 + pc.offsetWidth / 2;
+  renderFig1();
+}
+function stop() { if (state.playing) { clearInterval(state.playing); state.playing = null; } $("#playBtn").textContent = "▶ Play"; $("#playBtn").setAttribute("aria-pressed", "false"); }
+function play() {
+  if (state.playing) return stop();
+  if (state.Z >= 36) setZ(1);
+  $("#playBtn").textContent = "❚❚ Pause"; $("#playBtn").setAttribute("aria-pressed", "true");
+  state.playing = setInterval(() => { if (state.Z >= 36) return stop(); setZ(state.Z + 1); }, 1100);
+}
+$("#prevBtn").onclick = () => { stop(); setZ(state.Z - 1); };
+$("#nextBtn").onclick = () => { stop(); setZ(state.Z + 1); };
+$("#playBtn").onclick = play;
+$("#zSlider").addEventListener("input", e => { stop(); setZ(+e.target.value); });
+$("#excToggle").addEventListener("change", e => { state.exc = e.target.checked; setZ(state.Z, false); });
+
+/* ================= 5. CONFIGURATION TABLE ================= */
+$("#cfgTable tbody").innerHTML = Array.from({length: 36}, (_, i) => i + 1).map(Z => {
+  const {c, isExc} = fill(Z);
+  return `<tr class="${isExc ? "exc" : ""}"><td data-label="Z">${Z}</td><td data-label="Element"><button data-z="${Z}" aria-label="Open ${NAME[Z - 1]} in the atom builder">${SYM[Z - 1]}</button></td><td data-label="Full configuration">${fmtFull(c)}</td><td data-label="Shorthand">${fmtShort(c, Z)}</td><td data-label="Exception">${isExc ? "YES" : ""}</td><td data-label="Pure Aufbau would give">${isExc ? fmtShort(fill(Z, MADELUNG, false).c, Z) : ""}</td></tr>`;
+}).join("");
+$("#cfgTable").addEventListener("click", e => { const b = e.target.closest("button[data-z]"); if (b) { stop(); setZ(+b.dataset.z, false); $("#builder").scrollIntoView(); } });
+
+/* ================= 6. FIGURE 1 ================= */
+const OUTER = Array.from({length: 36}, (_, i) => outerShell(fill(i + 1).c));
+const SHAPE = ["c", "s", "d"];
+legend($("#fig1Legend"), [
+  {sw: swLine("var(--ink2)"), t: "Outer-shell electrons"},
+  {sw: swMark("var(--s)", "c"), t: "s-block"}, {sw: swMark("var(--p)", "s"), t: "p-block"}, {sw: swMark("var(--d)", "d"), t: "d-block"},
+  {sw: swLine("var(--d)", "5 4"), t: "Noble gas"}, {sw: swMark("var(--bad)", "ring"), t: "Exception (Cr, Cu)"}, {sw: swMark("var(--ink)", "ring"), t: "Element in the atom builder"}]);
+function renderFig1() {
+  const host = $("#fig1"); const {W, H, narrow} = dims(host);
+  const f = frame({W, H, m: {l: 52, r: 16, t: 26, b: 48}, x0: 0, x1: 37, y0: 0, y1: 9.5, xt: [1, 5, 10, 15, 20, 25, 30, 35], yt: [0, 2, 4, 6, 8], xl: "Atomic number Z (dimensionless)", yl: "Outer-shell electrons (electrons)"});
+  let s = f.s;
+  for (const z in NOBLE) s += `<line x1="${f.sx(+z)}" x2="${f.sx(+z)}" y1="${f.plot.t}" y2="${f.plot.b}" stroke="var(--d)" stroke-dasharray="5 4" stroke-width="1.2"/><text class="lbl" x="${f.sx(+z)}" y="${f.plot.t - 8}" text-anchor="middle" style="fill:var(--d)">${NOBLE[z]}</text>`;
+  s += `<polyline fill="none" stroke="var(--ink2)" stroke-width="1.5" stroke-opacity=".6" points="${OUTER.map((v, i) => `${f.sx(i + 1)},${f.sy(v)}`).join(" ")}"/>`;
+  const r = narrow ? 3.6 : 4.6;
+  OUTER.forEach((v, i) => { const Z = i + 1, b = block(Z); s += marker(SHAPE[b], f.sx(Z), f.sy(v), r, LCOL[b], `stroke="var(--card)" stroke-width="1.2"`); });
+  for (const Z of [24, 29]) s += `<circle cx="${f.sx(Z)}" cy="${f.sy(OUTER[Z - 1])}" r="${r + 5}" fill="none" stroke="var(--bad)" stroke-width="1.5"/><text class="lbl" x="${f.sx(Z)}" y="${f.sy(OUTER[Z - 1]) + 26}" text-anchor="middle" style="fill:var(--bad)">${SYM[Z - 1]}</text>`;
+  const Zc = state.Z; s += `<circle cx="${f.sx(Zc)}" cy="${f.sy(OUTER[Zc - 1])}" r="${r + 8}" fill="none" stroke="var(--ink)" stroke-width="1.6"/>`;
+  s += `<line class="xh" y1="${f.plot.t}" y2="${f.plot.b}"/><rect class="ov" x="${f.plot.l}" y="${f.plot.t - 10}" width="${f.plot.r - f.plot.l}" height="${f.plot.b - f.plot.t + 10}"/>`;
+  swap(host, `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" tabindex="0" role="img" aria-label="Figure 1: outer-shell electrons against Z, from 1 to 36. Use left and right arrow keys to move, Enter to open the element.">${s}</svg>`);
+  bindX(host, {n: 36, start: Zc - 1, x: i => f.sx(i + 1), y: i => f.sy(OUTER[i]),
+    tip: i => `<b>${NAME[i]} (${SYM[i]})</b>, Z = ${i + 1}<br>Outer-shell electrons: <b>${OUTER[i]}</b><br>${L[block(i + 1)]}-block · ${fmtShort(fill(i + 1).c, i + 1)}${EXC[i + 1] ? "<br><b>Exception</b>" : ""}`,
+    pick: (i, jump) => { if (!jump) return; stop(); setZ(i + 1, false); $("#builder").scrollIntoView(); }});
+}
+
+/* ================= 7. VALIDATION GRIDS ================= */
+function vgrid(el, wrongSet) { el.innerHTML = SYM.map((s, i) => `<div class="vc ${wrongSet.has(i + 1) ? "bad" : ""}" title="${NAME[i]}: ${wrongSet.has(i + 1) ? "differs from" : "matches"} NIST"><small>${i + 1}</small>${s}</div>`).join(""); }
+const wrongPure = new Set(SYM.map((_, i) => i + 1).filter(Z => !pureM.includes(Z)));
+vgrid($("#vgPure"), wrongPure); vgrid($("#vgExc"), new Set());
+const pc = v => (100 * v / 36).toFixed(1).replace(".0", "");
+$("#vsPure").innerHTML = `<div class="score bad">${pureM.length} / 36 = ${(100 * pureM.length / 36).toFixed(1)} %</div><p class="note" style="text-align:center;margin:0">${[...wrongPure].map(Z => `${SYM[Z - 1]}: predicted ${fmtShort(fill(Z, MADELUNG, false).c, Z)}, NIST ${nistHtml(NIST[Z])}`).join(" · ")}</p>`;
+$("#vsExc").innerHTML = `<div class="score ok">${excM.length} / 36 = ${pc(excM.length)} %</div><p class="note" style="text-align:center;margin:0">Every configuration matches the NIST reference.</p>`;
+$("#liveChecks").innerHTML = CHECKS.map(([t, ok]) => `<li><span class="ic ${ok ? "ok" : "bad"}" aria-label="${ok ? "passed" : "failed"}">${ok ? "✓" : "✗"}</span>${t}</li>`).join("");
+
+/* ================= 8. PARAMETER STUDY ================= */
+const ALPHAS = Array.from({length: 41}, (_, i) => Math.round(i * 5) / 100);
+const SWEEP = ALPHAS.map(a => { const o = generalOrder(a); return {pure: countMatches(o, false).length, exc: countMatches(o, true).length}; });
+const OK_WIN = ALPHAS.filter((a, i) => SWEEP[i].exc === 36);
+let alpha = 1;
+legend($("#fig2Legend"), [
+  {sw: swLine("var(--f)", "", "c"), t: "Rule + Cr/Cu exceptions"}, {sw: swLine("var(--s)", "", "s"), t: "Rule only"},
+  {sw: `<svg width="18" height="14" aria-hidden="true"><rect x="1" y="1" width="16" height="12" fill="var(--f)" opacity=".18"/></svg>`, t: `All 36 correct (${OK_WIN[0].toFixed(2)} ≤ α ≤ ${OK_WIN[OK_WIN.length - 1].toFixed(2)})`},
+  {sw: swLine("var(--p)", "5 4"), t: "α = 1 (Madelung)"}, {sw: swLine("var(--ink)"), t: "Selected α"}]);
+function renderFig2() {
+  const host = $("#fig2"); const {W, H, narrow} = dims(host);
+  const f = frame({W, H, m: {l: 56, r: 16, t: 16, b: 48}, x0: 0, x1: 2, y0: 0, y1: 38, xt: [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].filter((v, i) => !narrow || i % 2 === 0), yt: [0, 6, 12, 18, 24, 30, 36], xl: "Weight α in the ordering rule n + α·l (dimensionless)", yl: "Elements agreeing with NIST (of 36)"});
+  let s = f.s;
+  s += `<rect x="${f.sx(OK_WIN[0])}" y="${f.plot.t}" width="${f.sx(OK_WIN[OK_WIN.length - 1]) - f.sx(OK_WIN[0])}" height="${f.plot.b - f.plot.t}" fill="var(--f)" opacity=".15"/>`;
+  s += `<line x1="${f.sx(1)}" x2="${f.sx(1)}" y1="${f.plot.t}" y2="${f.plot.b}" stroke="var(--p)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  const r = narrow ? 3 : 3.8;
+  s += `<polyline fill="none" stroke="var(--f)" stroke-width="2" points="${SWEEP.map((v, i) => `${f.sx(ALPHAS[i])},${f.sy(v.exc)}`).join(" ")}"/>`;
+  s += `<polyline fill="none" stroke="var(--s)" stroke-width="2" points="${SWEEP.map((v, i) => `${f.sx(ALPHAS[i])},${f.sy(v.pure)}`).join(" ")}"/>`;
+  SWEEP.forEach((v, i) => { s += marker("c", f.sx(ALPHAS[i]), f.sy(v.exc), r, "var(--f)", `stroke="var(--card)" stroke-width="1"`) + marker("s", f.sx(ALPHAS[i]), f.sy(v.pure), r * 0.8, "var(--s)", `stroke="var(--card)" stroke-width="1"`); });
+  const ai = Math.round(alpha * 20);
+  s += `<line x1="${f.sx(alpha)}" x2="${f.sx(alpha)}" y1="${f.plot.t}" y2="${f.plot.b}" stroke="var(--ink)" stroke-width="1.6"/><text class="lbl" x="${f.sx(alpha) + (alpha > 1.6 ? -6 : 6)}" y="${f.plot.t + 14}" text-anchor="${alpha > 1.6 ? "end" : "start"}">α = ${alpha.toFixed(2)}</text>`;
+  s += `<line class="xh" y1="${f.plot.t}" y2="${f.plot.b}"/><rect class="ov" x="${f.plot.l}" y="${f.plot.t}" width="${f.plot.r - f.plot.l}" height="${f.plot.b - f.plot.t}"/>`;
+  swap(host, `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" tabindex="0" role="img" aria-label="Figure 2: elements agreeing with NIST against alpha from 0 to 2. Arrow keys change alpha.">${s}</svg>`);
+  bindX(host, {n: ALPHAS.length, start: ai, x: i => f.sx(ALPHAS[i]), y: i => f.sy(SWEEP[i].exc), live: true,
+    tip: i => `<b>α = ${ALPHAS[i].toFixed(2)}</b><br>Rule + exceptions: <b>${SWEEP[i].exc}</b> / 36<br>Rule only: <b>${SWEEP[i].pure}</b> / 36`,
+    pick: i => setAlpha(ALPHAS[i])});
+}
+function setAlpha(a) {
+  alpha = Math.round(a * 20) / 20;
+  $("#alphaSlider").value = alpha; $("#alphaVal").textContent = `α = ${alpha.toFixed(2)}`;
+  document.querySelectorAll(".presets .btn").forEach(b => b.setAttribute("aria-pressed", +b.dataset.a === alpha));
+  const o = generalOrder(alpha);
+  $("#alphaChips").innerHTML = o.slice(0, 12).map(([n, l], i) => { const v = r10(n + alpha * l); const diff = lab(n, l) !== lab(...MADELUNG[i]); return chip(n, l, `${+v.toFixed(2)}`, diff ? "diff" : ""); }).join("");
+  const mp = countMatches(o, false), me = countMatches(o, true);
+  const wr = m => { const w = SYM.filter((_, i) => !m.includes(i + 1)); return w.length ? "Wrong: " + w.join(", ") : "All 36 agree with NIST"; };
+  $("#cntPure").textContent = `${mp.length} / 36 agree with NIST`; $("#wrongPure").textContent = wr(mp);
+  $("#cntExc").textContent = `${me.length} / 36 agree with NIST`; $("#wrongExc").textContent = wr(me);
+  renderFig2();
+}
+$("#alphaSlider").addEventListener("input", e => setAlpha(+e.target.value));
+document.querySelectorAll(".presets .btn").forEach(b => b.addEventListener("click", () => setAlpha(+b.dataset.a)));
+
+/* alpha = 0 grid (order by n only) */
+$("#nOrderChips").innerHTML = N_ORDER.filter(([n]) => n <= 4).slice(0, 8).map(([n, l]) => `<span class="c l${l} ${(n === 3 && l === 2) || (n === 4 && l === 0) ? "diff" : ""}" style="padding:6px 12px;border-radius:9px;font:600 17px Poppins,sans-serif;border:2px solid transparent">${lab(n, l)}</span>`).join("");
+const nM = countMatches(N_ORDER, false), wrongN = new Set(SYM.map((_, i) => i + 1).filter(Z => !nM.includes(Z)));
+vgrid($("#vgN"), wrongN);
+$("#vsN").innerHTML = `<div class="score bad">${nM.length} / 36 correct</div><p class="note" style="text-align:center;margin:0">Wrong: ${[...wrongN].map(Z => SYM[Z - 1]).join(", ")}<br>e.g. K: α = 0 gives ${fmtShort(fill(19, N_ORDER, false).c, 19)}, NIST gives ${nistHtml(NIST[19])}</p>`;
+
+/* Figure 3 */
+const WN = {}, WM = {};
+for (let Z = 1; Z <= 36; Z++) { const ref = expandRef(NIST[Z]); const a = misplaced(fill(Z, N_ORDER, false).c, ref), b = misplaced(fill(Z, MADELUNG, false).c, ref); if (a) WN[Z] = a; if (b) WM[Z] = b; }
+const ZW = [...new Set([...Object.keys(WN), ...Object.keys(WM)].map(Number))].sort((a, b) => a - b);
+legend($("#fig3Legend"), [{sw: swMark("var(--p)", "b"), t: "n-ordering (n, then l)"}, {sw: swMark("var(--s)", "b"), t: "Madelung (n + l, then n)"}]);
+function renderFig3() {
+  const host = $("#fig3"); const {W, H, narrow} = dims(host, 240, 0.5, 360);
+  const ymax = Math.max(...ZW.map(Z => Math.max(WN[Z] || 0, WM[Z] || 0))) + 0.8;
+  const f = frame({W, H, m: {l: 52, r: 12, t: 14, b: 48}, x0: -0.6, x1: ZW.length - 0.4, y0: 0, y1: ymax, xt: ZW.map((_, i) => i), yt: Array.from({length: Math.floor(ymax) + 1}, (_, i) => i), xf: i => ZW[i], xl: "Atomic number Z of the elements that go wrong (dimensionless)", yl: "Misplaced electrons (electrons)"});
+  let s = f.s; const bw = (f.sx(1) - f.sx(0)) * 0.36;
+  ZW.forEach((Z, i) => {
+    const a = WN[Z] || 0, b = WM[Z] || 0, x = f.sx(i);
+    const bar = (x0, v, c) => v ? `<path d="M${x0} ${f.sy(0)} V${f.sy(v) + 3} q0 -3 3 -3 H${x0 + bw - 3} q3 0 3 3 V${f.sy(0)}Z" fill="${c}"/>` : "";
+    s += bar(x - bw - 1, a, "var(--p)") + bar(x + 1, b, "var(--s)");
+    s += `<text class="lbl" x="${x}" y="${f.sy(Math.max(a, b)) - 6}" text-anchor="middle">${SYM[Z - 1]}</text>`;
+  });
+  s += `<line class="xh" y1="${f.plot.t}" y2="${f.plot.b}"/><rect class="ov" x="${f.plot.l}" y="${f.plot.t}" width="${f.plot.r - f.plot.l}" height="${f.plot.b - f.plot.t}"/>`;
+  swap(host, `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" tabindex="0" role="img" aria-label="Figure 3: misplaced electrons per element for n-ordering and Madelung. Arrow keys move between elements.">${s}</svg>`);
+  bindX(host, {n: ZW.length, x: i => f.sx(i), y: i => f.sy(Math.max(WN[ZW[i]] || 0, WM[ZW[i]] || 0)),
+    tip: i => { const Z = ZW[i]; return `<b>${NAME[Z - 1]} (${SYM[Z - 1]})</b>, Z = ${Z}<br>n-ordering: <b>${WN[Z] || 0}</b> misplaced (${fmtShort(fill(Z, N_ORDER, false).c, Z)})<br>Madelung: <b>${WM[Z] || 0}</b> misplaced (${fmtShort(fill(Z, MADELUNG, false).c, Z)})<br>NIST: ${nistHtml(NIST[Z])}`; }});
+}
+
+/* ================= 9. LIMITS ================= */
+$("#limCards").innerHTML = [[46, "Pd", "Palladium"], [47, "Ag", "Silver"]].map(([Z, sym, nm]) => {
+  const mad = fill(Z, MADELUNG, false).c; const pred = fmtShort(mad, Z);
+  const nist = nistHtml(NIST_EXTRA[Z]);
+  return `<div class="card"><div class="hd"><b>${sym}</b><span>${nm} · Z = ${Z}</span></div>
+    <div class="row"><span>Madelung:</span><span><s>${pred}</s> <span class="badge bad" style="padding:1px 8px">✗ wrong</span></span></div>
+    <div class="row"><span>NIST:</span><span><b>${nist}</b> <span class="badge ok" style="padding:1px 8px">✓</span></span></div></div>`;
+}).join("");
+
+/* ================= 10. FERMIONS vs BOSONS ================= */
+let NP = 10;
+legend($("#fig4Legend"), [{sw: swLine("var(--s)", "", "c"), t: "Fermions (≤ 2 per level)"}, {sw: swLine("var(--f)", "", "s"), t: "Bosons (no limit)"}, {sw: swLine("var(--ink)"), t: "Selected N"}]);
+function ladder(svg, occ, fermion, levels) {
+  const W = 320, gap = levels > 12 ? 20 : 30, H = levels * gap + 20, x0 = 46, x1 = W - 10;
+  let s = "";
+  for (let k = 0; k < levels; k++) {
+    const y = H - 14 - k * gap;
+    s += `<text x="4" y="${y + 4}" font-size="11" fill="var(--muted)" font-family="Inter">k = ${k}</text><line x1="${x0}" x2="${x1}" y1="${y}" y2="${y}" stroke="var(--line2)" stroke-width="1.2"/>`;
+    const n = occ[k] || 0;
+    if (fermion) {
+      const c = "var(--s)", mx = (x0 + x1) / 2;
+      if (n >= 1) s += `<g stroke="${c}" fill="${c}" stroke-width="2" stroke-linecap="round"><line x1="${mx - 8}" y1="${y - 2}" x2="${mx - 8}" y2="${y - gap * 0.62}"/><path d="M${mx - 12} ${y - gap * 0.55} L${mx - 8} ${y - gap * 0.72} L${mx - 4} ${y - gap * 0.55}Z" stroke-width=".5"/></g>`;
+      if (n >= 2) s += `<g stroke="${c}" fill="${c}" stroke-width="2" stroke-linecap="round"><line x1="${mx + 8}" y1="${y - gap * 0.72}" x2="${mx + 8}" y2="${y - 6}"/><path d="M${mx + 4} ${y - 9} L${mx + 8} ${y - 2} L${mx + 12} ${y - 9}Z" stroke-width=".5"/></g>`;
+    } else if (n) {
+      const per = 20, sp = (x1 - x0 - 16) / per;
+      for (let i = 0; i < n; i++) { const row = Math.floor(i / per), col = i % per; s += `<circle cx="${x0 + 10 + col * sp}" cy="${y - 6 - row * 11}" r="4.5" fill="var(--f)"/>`; }
+    }
+  }
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = s;
+}
+function setN(N) {
+  NP = Math.max(1, Math.min(40, N));
+  $("#nSlider").value = NP; $("#nLabel").textContent = NP;
+  const of = fillLevels(NP, 2), ob = fillLevels(NP, NP), levels = Math.max(6, Math.ceil(NP / 2) + 1);
+  ladder($("#ladF"), of, true, levels); ladder($("#ladB"), ob, false, levels);
+  $("#ladF").setAttribute("aria-label", `Fermions: ${NP} particles fill levels 0 to ${Math.ceil(NP / 2) - 1}`);
+  $("#ladB").setAttribute("aria-label", `Bosons: all ${NP} particles in level 0`);
+  $("#eF").textContent = `E = ${Ef(NP)} ħω`; $("#eB").textContent = `E = ${Eb(NP)} ħω`;
+  renderFig4();
+}
+function renderFig4() {
+  const host = $("#fig4"); const {W, H, narrow} = dims(host);
+  const Ns = Array.from({length: 40}, (_, i) => i + 1);
+  const f = frame({W, H, m: {l: 56, r: 16, t: 16, b: 48}, x0: 0, x1: 41, y0: 0, y1: 420, xt: [0, 5, 10, 15, 20, 25, 30, 35, 40], yt: [0, 100, 200, 300, 400], xl: "Number of particles N (particles)", yl: "Total energy (ħω)"});
+  let s = f.s; const r = narrow ? 2.6 : 3.3;
+  s += `<polyline fill="none" stroke="var(--s)" stroke-width="2" points="${Ns.map(N => `${f.sx(N)},${f.sy(Ef(N))}`).join(" ")}"/><polyline fill="none" stroke="var(--f)" stroke-width="2" points="${Ns.map(N => `${f.sx(N)},${f.sy(Eb(N))}`).join(" ")}"/>`;
+  Ns.forEach(N => { s += marker("c", f.sx(N), f.sy(Ef(N)), r, "var(--s)") + marker("s", f.sx(N), f.sy(Eb(N)), r * 0.85, "var(--f)"); });
+  s += `<line x1="${f.sx(NP)}" x2="${f.sx(NP)}" y1="${f.plot.t}" y2="${f.plot.b}" stroke="var(--ink)" stroke-width="1.6"/>`;
+  s += `<circle cx="${f.sx(NP)}" cy="${f.sy(Ef(NP))}" r="${r + 3}" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="${f.sx(NP)}" cy="${f.sy(Eb(NP))}" r="${r + 3}" fill="none" stroke="var(--ink)" stroke-width="1.5"/>`;
+  s += `<text class="lbl" x="${f.sx(NP) - 10}" y="${f.sy(Ef(NP)) - 10}" text-anchor="end" style="fill:var(--s)">Fermions ${Ef(NP)} ħω</text><text class="lbl" x="${f.sx(NP) + (NP > 30 ? -10 : 10)}" y="${f.sy(Eb(NP)) - 12}" text-anchor="${NP > 30 ? "end" : "start"}" style="fill:var(--ink2)">Bosons ${Eb(NP)} ħω</text>`;
+  s += `<line class="xh" y1="${f.plot.t}" y2="${f.plot.b}"/><rect class="ov" x="${f.plot.l}" y="${f.plot.t}" width="${f.plot.r - f.plot.l}" height="${f.plot.b - f.plot.t}"/>`;
+  swap(host, `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" tabindex="0" role="img" aria-label="Figure 4: total ground-state energy against N for fermions and bosons. Arrow keys change N.">${s}</svg>`);
+  bindX(host, {n: 40, start: NP - 1, x: i => f.sx(i + 1), y: i => f.sy(Ef(i + 1)), live: true,
+    tip: i => `<b>N = ${i + 1}</b><br>Fermions: <b>${Ef(i + 1)}</b> ħω<br>Bosons: <b>${Eb(i + 1)}</b> ħω`,
+    pick: i => setN(i + 1)});
+}
+$("#nSlider").addEventListener("input", e => setN(+e.target.value));
+
+/* ================= NAV, THEME, RESIZE ================= */
+const menuBtn = $("#menuBtn"), links = $("#navLinks");
+menuBtn.addEventListener("click", () => { const o = links.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", o); });
+links.addEventListener("click", e => { if (e.target.closest("a")) { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && links.classList.contains("open")) { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); menuBtn.focus(); } });
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+$("#themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const nx = cur === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = nx;
+  try { localStorage.setItem("theme", nx); } catch (e) {}
+});
+const navA = [...links.querySelectorAll("a")];
+const io = new IntersectionObserver(es => { es.forEach(en => { if (en.isIntersecting) navA.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id)); }); }, {rootMargin: "-40% 0px -55% 0px"});
+document.querySelectorAll("section.sec").forEach(s => io.observe(s));
+let rt; let lastW = innerWidth;
+addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (innerWidth === lastW) return; lastW = innerWidth; renderFig1(); renderFig2(); renderFig3(); renderFig4(); }, 150); });
+addEventListener("scroll", hideTip, {passive: true});
+
+buildPtable(); setZ(1, false); setAlpha(1); renderFig3(); setN(10);
+</script>
+</body>
+</html>
