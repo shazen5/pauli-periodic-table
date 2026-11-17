@@ -77,6 +77,13 @@ header.hero{padding:44px 0 18px;text-align:center}
 .members{max-width:760px;margin:16px auto 0;color:var(--ink2);font-size:15px}
 .members strong{color:var(--ink)}
 .legend-spdf{display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:14px;color:var(--ink2)}
+.objectives{max-width:760px;margin:22px auto 0;text-align:left;font-size:15.5px}
+.objectives p{margin:0 0 4px}
+.objectives ol{margin:0;padding-left:22px}
+.objectives li{margin:3px 0}
+.math-block{text-align:center;font-size:19px;margin:10px 0}
+.nb-text ol,.nb-text ul{padding-left:24px}
+.nb-text li{margin:4px 0}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
 
 /* sections */
@@ -328,6 +335,7 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
     <div class="pill">AI-Assisted Physics Simulation · Topic 8</div>
     <p class="members"><strong>Group members:</strong> <!--MEMBERS--></p>
     <div class="legend-spdf" aria-label="Colour key"><span><i class="dot" style="background:var(--s)"></i>s</span><span><i class="dot" style="background:var(--p)"></i>p</span><span><i class="dot" style="background:var(--d)"></i>d</span><span><i class="dot" style="background:var(--f)"></i>f</span></div>
+    <div class="card objectives"><!--MDFROM:0:**Objectives:**--></div>
   </div>
 </header>
 
@@ -348,7 +356,7 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
 <!-- 2 PAULI -->
 <section class="sec" id="pauli"><div class="wrap">
   <h2><span class="num">2</span> The Pauli exclusion principle</h2><div class="underline"></div>
-  <!--MDFROM:0:## Section 0-->
+  <!--MD:1-->
   <div class="stack" style="margin-top:16px">
     <div class="qn">
       <div class="card" style="border-left-color:var(--s)"><div class="sym">n</div><div class="what">shell</div><div class="vals">1, 2, 3, …</div></div>
@@ -372,16 +380,16 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
       <p class="note" style="margin:8px 0 0">Each orbital holds 2 electrons, and a subshell has 2l + 1 orbitals.</p>
     </div>
   </div>
-  <!--MD:2-->
-  <!--CODE:1-->
-  <!--CODE:3-->
+  <!--MD:3-->
+  <!--CODE:2-->
   <!--CODE:4-->
+  <!--CODE:5-->
 </div></section>
 
 <!-- 3 MADELUNG -->
 <section class="sec" id="madelung"><div class="wrap">
   <h2><span class="num">3</span> The Madelung (n + l) filling order</h2><div class="underline"></div>
-  <!--MD:5-->
+  <!--MD:6-->
   <div class="card stack" style="margin-top:14px">
     <div class="rulebox"><div class="r1">Fill subshells in order of increasing n + l</div><div class="note">if n + l is tied, the lower n fills first</div></div>
     <div class="chips" id="madStrip" style="justify-content:center"></div>
@@ -396,14 +404,14 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
     <p class="panel-title">Full Madelung order used in the model (n ≤ 7, l ≤ 3), with n + l above each subshell</p>
     <div class="chips small" id="madFull"></div>
   </div>
-  <!--CODE:6-->
   <!--CODE:7-->
+  <!--CODE:8-->
 </div></section>
 
 <!-- 4 BUILDER -->
 <section class="sec" id="builder"><div class="wrap">
   <h2><span class="num">4</span> Interactive atom builder: H to Kr</h2><div class="underline"></div>
-  <!--MD:8-->
+  <!--MD:9-->
   <div class="card" style="margin-top:14px">
     <div class="controls">
       <button class="btn" id="prevBtn" aria-label="Previous element">◀ Previous</button>
@@ -441,57 +449,57 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
       </div>
     </div>
   </div>
-  <!--CODE:9-->
   <!--CODE:10-->
+  <!--CODE:11-->
 </div></section>
 
 <!-- 5 TABLE -->
 <section class="sec" id="table"><div class="wrap">
   <h2><span class="num">5</span> Configuration table, Z = 1 to 36</h2><div class="underline"></div>
-  <!--MD:11-->
-  <!--CODE:12-->
-  <!--CODE:13-->
-  <!--MD:14-->
+  <!--MD:12--><!--MD:13-->
+  <!--CODE:14-->
+  <!--CODE:15-->
+  <!--MD:16-->
   <div class="tbl-wrap" style="margin-top:12px"><table class="cfg" id="cfgTable"><thead><tr><th>Z</th><th>Element</th><th>Full configuration</th><th>Shorthand</th><th>Exception</th><th>Pure Aufbau would give</th></tr></thead><tbody></tbody></table></div>
   <p class="hint">Click an element symbol to open it in the atom builder.</p>
-  <!--CODE:15-->
-  <!--CODE:16-->
+  <!--CODE:17-->
+  <!--CODE:18-->
 </div></section>
 
 <!-- 6 PERIODICITY -->
 <section class="sec" id="periodicity"><div class="wrap">
   <h2><span class="num">6</span> Periodicity: outer-shell electrons</h2><div class="underline"></div>
-  <!--MD:20-->
+  <!--MD:22--><!--MD:23-->
   <div class="card chart-card" style="margin-top:12px">
     <p class="chart-title">Figure 1: Electrons in the highest occupied shell</p>
     <div class="legend" id="fig1Legend"></div>
     <div class="chart" id="fig1"></div>
     <p class="hint">Hover or use ← → on the focused chart; click or press Enter to open that element in the atom builder.</p>
   </div>
-  <div class="caption"><!--MD:22--></div>
+  <div class="caption"><!--MD:25--></div>
   <details class="nbfig"><summary>Notebook figure (Figure 1, Matplotlib)</summary><img src="assets/fig1.png" alt="Notebook Figure 1: outer-shell electrons against atomic number" loading="lazy"></details>
-  <!--CODE:21-->
+  <!--CODE:24-->
 </div></section>
 
 <!-- 7 VALIDATION -->
 <section class="sec" id="validation"><div class="wrap">
   <h2><span class="num">7</span> Validation against NIST SRD 111</h2><div class="underline"></div>
-  <!--MD:17-->
+  <!--MD:19-->
   <div class="grid2" style="margin-top:12px">
     <div class="card"><p class="panel-title">Rule: pure Madelung (no exceptions)</p><div class="vgrid" id="vgPure"></div><div id="vsPure"></div></div>
     <div class="card"><p class="panel-title">Rule: Madelung + exceptions (Cr, Cu)</p><div class="vgrid" id="vgExc"></div><div id="vsExc"></div></div>
   </div>
   <h3 class="nb-h">Printed check results from the notebook</h3>
-  <!--OUT:19-->
+  <!--OUT:21-->
   <div class="card" style="margin-top:12px"><p class="panel-title">The same checks, recomputed live in your browser</p><ul class="checks" id="liveChecks"></ul></div>
-  <!--CODE:18-->
-  <!--CODE:19-->
+  <!--CODE:20-->
+  <!--CODE:21-->
 </div></section>
 
 <!-- 8 PARAMETER -->
 <section class="sec" id="parameter"><div class="wrap">
   <h2><span class="num">8</span> Parameter study: order by n + α·l</h2><div class="underline"></div>
-  <!--MD:23-->
+  <!--MD:26-->
   <div class="card" style="margin-top:8px">
     <div class="alpha-head">
       <div class="alpha-val" id="alphaVal">α = 1.00</div>
@@ -511,11 +519,11 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
     <div class="chart" id="fig2"></div>
     <p class="hint">Click the chart (or press Enter on it) to set α. ← → move along α.</p>
   </div>
-  <div class="caption"><!--MD:25--></div>
+  <div class="caption"><!--MD:28--></div>
   <details class="nbfig"><summary>Notebook figure (Figure 2, Matplotlib)</summary><img src="assets/fig2.png" alt="Notebook Figure 2: agreement with NIST against alpha" loading="lazy"></details>
-  <!--CODE:24-->
-  <!--MD:26-->
-  <!--MD:27-->
+  <!--CODE:27-->
+  <!--MD:29-->
+  <!--MD:30-->
   <div class="card" style="margin-top:12px">
     <p style="text-align:center;font:600 19px Poppins,sans-serif;margin:0 0 10px">α = 0: order by n only</p>
     <div class="chips" id="nOrderChips" style="justify-content:center"></div>
@@ -528,15 +536,15 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
     <div class="chart" id="fig3"></div>
     <p class="hint">Hover a pair of bars (or focus the chart and use ← →) for details.</p>
   </div>
-  <div class="caption"><!--MD:29--></div>
+  <div class="caption"><!--MD:32--></div>
   <details class="nbfig"><summary>Notebook figure (Figure 3, Matplotlib)</summary><img src="assets/fig3.png" alt="Notebook Figure 3: misplaced electrons per element" loading="lazy"></details>
-  <!--CODE:28-->
+  <!--CODE:31-->
 </div></section>
 
 <!-- 9 LIMITS -->
 <section class="sec" id="limits"><div class="wrap">
   <h2><span class="num">9</span> Limits of the model</h2><div class="underline"></div>
-  <!--MD:36-->
+  <!--MD:39-->
   <div class="lim" id="limCards" style="margin-top:12px"></div>
   <p style="text-align:center;font:600 18px Poppins,sans-serif;margin:18px 0 4px">For Z &gt; 36 the simple rule has more exceptions.</p>
   <p style="text-align:center;margin:0" class="sub">Orbital energies shift with Z and electron–electron repulsion matters, so the Madelung rule is empirical.</p>
@@ -546,7 +554,7 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
 <!-- 10 BOSONS -->
 <section class="sec" id="bosons"><div class="wrap">
   <h2><span class="num">10</span> Extension: fermions versus bosons</h2><div class="underline"></div>
-  <!--MD:30-->
+  <!--MD:33-->
   <div class="card" style="margin-top:12px">
     <div class="controls"><div class="slider-row"><label for="nSlider" class="note" style="white-space:nowrap">N = <b id="nLabel" style="color:var(--ink)">10</b> particles</label><input type="range" id="nSlider" min="1" max="40" value="10" step="1"></div></div>
     <div class="ladders" style="margin-top:12px">
@@ -561,19 +569,19 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
     <div class="chart" id="fig4"></div>
     <p class="hint">Click the chart (or press Enter on it) to set N. ← → move along N.</p>
   </div>
-  <div class="caption"><!--MD:33--></div>
+  <div class="caption"><!--MD:36--></div>
   <details class="nbfig"><summary>Notebook figure (Figure 4, Matplotlib)</summary><img src="assets/fig4.png" alt="Notebook Figure 4: fermions versus bosons" loading="lazy"></details>
-  <!--CODE:31-->
-  <!--CODE:32-->
+  <!--CODE:34-->
+  <!--CODE:35-->
 </div></section>
 
 <!-- 11 SECTION 8 -->
 <section class="sec" id="interpretation"><div class="wrap">
   <h2><span class="num">11</span> Interpretation, AI log and reflection</h2><div class="underline"></div>
-  <!--MD:34-->
-  <!--MD:35-->
   <!--MD:37-->
   <!--MD:38-->
+  <!--MD:40-->
+  <!--MD:41-->
 </div></section>
 
 <!-- 12 SUMMARY -->
@@ -590,7 +598,7 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
 <!-- 13 REFERENCES -->
 <section class="sec" id="references"><div class="wrap">
   <h2><span class="num">13</span> References</h2><div class="underline"></div>
-  <!--MD:39-->
+  <!--MD:42-->
 </div></section>
 
 <!-- 14 DOWNLOADS -->

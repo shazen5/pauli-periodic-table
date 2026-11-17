@@ -21,13 +21,27 @@ def src(i):
 
 
 # ---------- tiny Markdown renderer (only what the notebook uses) ----------
-def math(tex):
+def math(tex, block=False):
     for a, b in [(r"\tfrac{1}{2}", "½"), (r"\,", " "), (r"\hbar", "ħ"),
-                 (r"\omega", "ω"), (r"\dots", "…")]:
+                 (r"\omega", "ω"), (r"\alpha", "α"), (r"\dots", "…")]:
         tex = tex.replace(a, b)
     tex = html.escape(tex, quote=False)
     tex = re.sub(r"_(\w)", r"<sub>\1</sub>", tex)
+    if block:
+        return f'<div class="math-block"><span class="math">{tex}</span></div>'
     return f'<span class="math">{tex}</span>'
+
+
+def link(url, text_html):
+    return f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener">{text_html}</a>'
+
+
+def emphasis(p):
+    """Code, bold and italic on text that is already HTML-escaped."""
+    p = re.sub(r"`([^`]+)`", r"<code>\1</code>", p)
+    p = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", p)
+    p = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?!\w)", r"<em>\1</em>", p)
+    return p
 
 
 def inline(s):
@@ -37,12 +51,20 @@ def inline(s):
         if p.startswith("$") and p.endswith("$") and len(p) > 1:
             out.append(math(p[1:-1]))
             continue
-        p = html.escape(p, quote=False)
-        p = re.sub(r"`([^`]+)`", r"<code>\1</code>", p)
-        p = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", p)
-        p = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?!\w)", r"<em>\1</em>", p)
-        p = re.sub(r"(https?://[^\s)<]+)",
-                   r'<a href="\1" target="_blank" rel="noopener">\1</a>', p)
+        saved = []
+
+        def keep(html_snippet):
+            saved.append(html_snippet)
+            return f"\x00{len(saved) - 1}\x00"
+
+        # [text](url), <url> and <br> are kept aside before escaping
+        p = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)",
+                   lambda m: keep(link(m.group(2), emphasis(html.escape(m.group(1), quote=False)))), p)
+        p = re.sub(r"<(https?://[^>\s]+)>", lambda m: keep(link(m.group(1), html.escape(m.group(1)))), p)
+        p = re.sub(r"<br\s*/?>", lambda m: keep("<br>"), p)
+        p = emphasis(html.escape(p, quote=False))
+        p = re.sub(r"(https?://[^\s)<\x00]+)", lambda m: link(html.unescape(m.group(1)), m.group(1)), p)
+        p = re.sub(r"\x00(\d+)\x00", lambda m: saved[int(m.group(1))], p)
         out.append(p)
     return "".join(out)
 
@@ -60,6 +82,11 @@ def markdown(text):
         line = lines[i].rstrip()
         if not line.strip():
             flush(); i += 1; continue
+        mm = re.match(r"^\s*\$\$(.+)\$\$\s*$", line)
+        if mm:
+            flush()
+            out.append(math(mm.group(1).strip(), block=True))
+            i += 1; continue
         m = re.match(r"^(#{1,3})\s+(.*)", line)
         if m:
             flush()
@@ -86,8 +113,24 @@ def markdown(text):
             flush()
             ordered = bool(re.match(r"^\d+\. ", line))
             items = []
-            while i < len(lines) and re.match(r"^(- |\d+\. )", lines[i]):
-                items.append(re.sub(r"^(- |\d+\. )", "", lines[i].rstrip()))
+            item_re = r"^\d+\. " if ordered else r"^- "
+            while i < len(lines):
+                cur = lines[i].rstrip()
+                if re.match(item_re, cur):
+                    items.append(re.sub(item_re, "", cur))
+                elif cur.strip() and cur[:1] in (" ", "\t") and items:
+                    items[-1] += " " + cur.strip()        # indented continuation line
+                elif not cur.strip():
+                    # a blank line inside a list: continue only if the list goes on
+                    j = i + 1
+                    while j < len(lines) and not lines[j].strip():
+                        j += 1
+                    if j < len(lines) and (re.match(item_re, lines[j]) or lines[j][:1] in (" ", "\t")):
+                        i = j
+                        continue
+                    break
+                else:
+                    break
                 i += 1
             tag = "ol" if ordered else "ul"
             out.append(f"<{tag}>" + "".join(f"<li>{inline(x)}</li>" for x in items) + f"</{tag}>")
@@ -121,8 +164,18 @@ def render(m):
         text = src(int(cell))
         return f'<div class="nb-text">{markdown(text[text.index(marker):])}</div>'
     if kind == "MEMBERS":
-        line = next(l for l in src(0).split("\n") if l.startswith("**Group members:**"))
-        return html.escape(line.replace("**Group members:**", "").strip())
+        lines = src(0).split("\n")
+        k = next(n for n, l in enumerate(lines) if l.startswith("**Group members:**"))
+        same_line = lines[k].replace("**Group members:**", "").strip()
+        if same_line:
+            return html.escape(same_line)
+        names = []
+        for l in lines[k + 1:]:
+            if l.startswith("- "):
+                names.append(l[2:].strip())
+            elif l.strip() and names:
+                break
+        return html.escape(", ".join(names))
     if kind == "CODE":
         return code_block(int(arg))
     if kind == "OUT":

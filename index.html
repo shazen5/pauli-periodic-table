@@ -77,6 +77,13 @@ header.hero{padding:44px 0 18px;text-align:center}
 .members{max-width:760px;margin:16px auto 0;color:var(--ink2);font-size:15px}
 .members strong{color:var(--ink)}
 .legend-spdf{display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:14px;color:var(--ink2)}
+.objectives{max-width:760px;margin:22px auto 0;text-align:left;font-size:15.5px}
+.objectives p{margin:0 0 4px}
+.objectives ol{margin:0;padding-left:22px}
+.objectives li{margin:3px 0}
+.math-block{text-align:center;font-size:19px;margin:10px 0}
+.nb-text ol,.nb-text ul{padding-left:24px}
+.nb-text li{margin:4px 0}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
 
 /* sections */
@@ -328,6 +335,8 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
     <div class="pill">AI-Assisted Physics Simulation · Topic 8</div>
     <p class="members"><strong>Group members:</strong> Manal Almalawi, Nayla Almuraee, Asayel Alghamdi, Joud Alzahrani, Yara Alamri, Albatool Alattas, Shaden Alharthi</p>
     <div class="legend-spdf" aria-label="Colour key"><span><i class="dot" style="background:var(--s)"></i>s</span><span><i class="dot" style="background:var(--p)"></i>p</span><span><i class="dot" style="background:var(--d)"></i>d</span><span><i class="dot" style="background:var(--f)"></i>f</span></div>
+    <div class="card objectives"><div class="nb-text"><p><strong>Objectives:</strong></p>
+<ol><li>To understand the Pauli Principle and its role in electron configurations.</li><li>To study how electrons fill atomic subshells according to the Aufbau Principle and the Madelung Rule.</li><li>To develop a Python simulation that generates electron configurations for elements from Z = 1 to Z = 36.</li><li>To identify the exceptional electron configurations of Chromium (Cr) and Copper (Cu).</li><li>To understand the relationship between electron configurations and the periodic table.</li><li>To validate the simulation by comparing its results with NIST reference data.</li><li>To study how changing the filling rule (n + αl) affects the accuracy of the results.</li><li>To compare how fermions and bosons fill the same energy levels.</li></ol></div></div>
   </div>
 </header>
 
@@ -662,8 +671,7 @@ Cr with pure Aufbau: {(1, 0): 2, (2, 0): 2, (2, 1): 6, (3, 0): 2, (3, 1): 6, (4,
 <!-- 5 TABLE -->
 <section class="sec" id="table"><div class="wrap">
   <h2><span class="num">5</span> Configuration table, Z = 1 to 36</h2><div class="underline"></div>
-  <div class="nb-text"><h3 class="nb-h">Section 4 — Writing the configurations and the summary table</h3>
-<h4 class="nb-h">4.1 Text formatting</h4>
+  <div class="nb-text"><h3 class="nb-h">Section 4 — Writing the configurations and the summary table</h3></div><div class="nb-text"><h4 class="nb-h">4.1 Text formatting</h4>
 <p><strong>Physics background:</strong> In this part, the code shows electron configurations from hydrogen (Z = 1) to krypton (Z = 36). We used two ways, the full way and the short way using noble gases, to show the outer electrons clearly.</p></div>
   <details class="nb-code"><summary>Notebook code · Cell 13 — Formatting functions</summary><pre><code># Cell 13 — Formatting functions
 def format_full(config, sort_by_n=True):
@@ -761,8 +769,7 @@ styled_table   # the last line of a cell is displayed by Jupyter</code></pre><di
 <section class="sec" id="periodicity"><div class="wrap">
   <h2><span class="num">6</span> Periodicity: outer-shell electrons</h2><div class="underline"></div>
   <div class="nb-text"><h3 class="nb-h">Section 6 — Parameter study</h3>
-<p><strong>Physics background:</strong> Here we looked at how the atomic number (Z) is connected to the number of electrons in the outer shell. The number rises from 1 to 8 across periods 2 and 3, then drops to 1 after each noble gas. In period 4 it stays at 2 from Ca to Zn, because the 3d electrons belong to the inner shell (n = 3). It dips to 1 at Cr and Cu, where one 4s electron moves into 3d. This repeating pattern is what makes the periodic table organized.</p>
-<h4 class="nb-h">6.1 Outer-shell electrons</h4></div>
+<p><strong>Physics background:</strong> Here we looked at how the atomic number (Z) is connected to the number of electrons in the outer shell. The number rises from 1 to 8 across periods 2 and 3, then drops to 1 after each noble gas. In period 4 it stays at 2 from Ca to Zn, because the 3d electrons belong to the inner shell (n = 3). It dips to 1 at Cr and Cu, where one 4s electron moves into 3d. This repeating pattern is what makes the periodic table organized.</p></div><div class="nb-text"><h4 class="nb-h">6.1 Outer-shell electrons</h4></div>
   <div class="card chart-card" style="margin-top:12px">
     <p class="chart-title">Figure 1: Electrons in the highest occupied shell</p>
     <div class="legend" id="fig1Legend"></div>
@@ -1066,7 +1073,15 @@ Wrong with Madelung   : [&#x27;Cr&#x27;, &#x27;Cu&#x27;] (2 elements)</pre></det
 <section class="sec" id="limits"><div class="wrap">
   <h2><span class="num">9</span> Limits of the model</h2><div class="underline"></div>
   <div class="nb-text"><h4 class="nb-h">8.2 Limitations of the model</h4>
-<p><em>(to be written by the group)</em></p></div>
+<p>Our model gives the correct configuration for all 36 elements, but that result needs some context. Below are the main places where the model is simplified, and what this means for our results.</p>
+<p><strong>1. It sorts subshells instead of calculating energies</strong></p>
+<p>The model never works out how much energy a subshell actually has. It simply puts the subshells in order using n + l, and it ignores how the electrons interact with each other, through their repulsion and exchange energy. Those interactions are what make a half-filled or completely filled 3d subshell more stable, so without them the model has no way of knowing that Cr and Cu are special. We had to type their correct configurations into the code ourselves. In other words, the model gets these two elements right only because we gave it the answer.</p>
+<p><strong>2. It would not work for heavier elements</strong></p>
+<p>Within the range of the assignment, up to krypton, the model works well. However, it cannot be extended just by increasing Z. Beyond krypton the Madelung rule fails much more often, in elements such as niobium, molybdenum, ruthenium, rhodium, palladium and silver. Our list of exceptions only contains Cr and Cu, so the code would simply give the wrong answer for all of these. In heavy atoms the subshell energies are very close together, so small effects that the rule ignores, such as relativity, are enough to change the filling order. Keeping the model correct would mean adding more and more exceptions by hand.</p>
+<p><strong>3. It only describes neutral atoms in their ground state</strong></p>
+<p>The code always places exactly Z electrons, so every atom it builds is neutral and in its lowest energy state. There is no way to give it a charge, which means it cannot describe ions. This is a real gap, because the filling order changes once an atom is ionised: the 3d subshell drops below 4s, and the 4s electrons are the first to leave. Iron, for example, becomes Fe²⁺ = [Ar] 3d⁶, not [Ar] 3d⁴ 4s². The model also cannot handle excited states, where an electron has moved up to a higher subshell.</p>
+<p><strong>4. The fermion–boson comparison is an idealised picture</strong></p>
+<p>In our extension, each level has the energy (k + ½)ħω, so the levels are evenly spaced like those of a harmonic oscillator. Real atomic levels are not evenly spaced, and they have shapes and angular momentum that our simple levels do not. This part of the model is useful for showing the basic difference between fermions and bosons, but it does not describe the electrons in a real atom.</p></div>
   <div class="lim" id="limCards" style="margin-top:12px"></div>
   <p style="text-align:center;font:600 18px Poppins,sans-serif;margin:18px 0 4px">For Z &gt; 36 the simple rule has more exceptions.</p>
   <p style="text-align:center;margin:0" class="sub">Orbital energies shift with Z and electron–electron repulsion matters, so the Madelung rule is empirical.</p>
@@ -1180,11 +1195,29 @@ plt.show()</code></pre></details>
   <h2><span class="num">11</span> Interpretation, AI log and reflection</h2><div class="underline"></div>
   <div class="nb-text"><h3 class="nb-h">Section 8 — Interpretation, limitations, AI log and references</h3></div>
   <div class="nb-text"><h4 class="nb-h">8.1 Interpretation of the results</h4>
-<p><em>(to be written by the group)</em></p></div>
+<p><strong>1. How the periodic table comes out of two rules</strong></p>
+<p>Looking at all our results together, the periodic table comes from just two simple ideas. The Pauli principle decides how many electrons each subshell can hold, and the Madelung rule decides the order they fill in. When we combine them, we get period lengths of 2, 8, 8 and 18, which is exactly the repeating pattern shown in Figure 1. Our code never told the model where a period starts or ends; the pattern came out on its own. Cr and Cu are the only places where the pattern breaks, and they show that real atoms sometimes prefer a more stable arrangement over the simple filling order.</p>
+<p><strong>2. Why the energy depends on l and not only on n</strong></p>
+<p>Filling the subshells by n alone failed for ten elements, while the Madelung rule failed for only two, as Figure 3 shows. This difference tells us something important: in atoms with more than one electron, the energy of a subshell depends on its shape (l), not just on its shell number (n). This is different from hydrogen, where only n matters. So the other electrons in the atom change the order of the energy levels, and that change is what puts 4s before 3d.</p>
+<p><strong>3. What the α study tells us about the Madelung rule</strong></p>
+<p>The α study shows how strongly the energy has to depend on l for the model to work. For 4s to fill before 3d, its value of n + αl must be smaller:</p>
+<div class="math-block"><span class="math">4 &lt; 3 + 2α</span></div>
+<div class="math-block"><span class="math">α &gt; 0.5</span></div>
+<p>Only a narrow range of α (about 0.55 to 1) gives the correct configurations, and Figure 2 shows how quickly the agreement drops outside this window. The Madelung rule (α = 1) sits right at the edge of that range. This means it is not an exact law of nature. It is an empirical rule that works very well for Z = 1 to 36 but is not derived from first principles.</p>
+<p><strong>4. Why the Pauli principle matters</strong></p>
+<p>Comparing fermions and bosons shows what the Pauli principle does to a system of particles. Fermions are forced to stack up into higher levels, so their total energy grows much faster than that of bosons, as seen in Figure 4. For atoms, this has a big consequence: if electrons were bosons, they would all fall into the 1s orbital. There would be no shells, no periods and no periodic table. So the Pauli principle is the real reason atoms have structure, and the reason the elements behave the way they do.</p></div>
   <div class="nb-text"><h4 class="nb-h">8.3 AI log</h4>
-<div class="tbl-wrap"><table class="nb-table"><thead><tr><th>#</th><th>Date</th><th>Tool</th><th>Prompt (summary)</th><th>What we used</th><th>What we changed / checked</th></tr></thead><tbody><tr><td data-label="#">&nbsp;</td><td data-label="Date">&nbsp;</td><td data-label="Tool">&nbsp;</td><td data-label="Prompt (summary)">&nbsp;</td><td data-label="What we used">&nbsp;</td><td data-label="What we changed / checked">&nbsp;</td></tr><tr><td data-label="#">&nbsp;</td><td data-label="Date">&nbsp;</td><td data-label="Tool">&nbsp;</td><td data-label="Prompt (summary)">&nbsp;</td><td data-label="What we used">&nbsp;</td><td data-label="What we changed / checked">&nbsp;</td></tr><tr><td data-label="#">&nbsp;</td><td data-label="Date">&nbsp;</td><td data-label="Tool">&nbsp;</td><td data-label="Prompt (summary)">&nbsp;</td><td data-label="What we used">&nbsp;</td><td data-label="What we changed / checked">&nbsp;</td></tr></tbody></table></div></div>
+<ol><li><strong>Pauli principle video project:</strong><br> <a href="https://claude.ai/share/244975fa-767f-4626-b39d-648dc1cc70ab" target="_blank" rel="noopener">https://claude.ai/share/244975fa-767f-4626-b39d-648dc1cc70ab</a></li><li><strong>Project code with error found:</strong><br> <a href="https://claude.ai/share/8ccf0904-7464-42a1-aef1-0a621c0ae9c1" target="_blank" rel="noopener">https://claude.ai/share/8ccf0904-7464-42a1-aef1-0a621c0ae9c1</a></li><li><strong>Code update with text:</strong><br> <a href="https://claude.ai/share/5710205f-81db-44c9-b222-dbbc003eec01" target="_blank" rel="noopener">https://claude.ai/share/5710205f-81db-44c9-b222-dbbc003eec01</a></li><li><strong>Claude Code website:</strong><br> This session was done in Claude Code, which does not provide a shareable link. In it, we asked Claude to build a website for our project and publish it with a public link using GitHub Pages.</li></ol></div>
   <div class="nb-text"><h4 class="nb-h">8.4 Reflection on using AI</h4>
-<p><em>(to be written by the group)</em></p></div>
+<p><strong>1. How We Used AI</strong></p>
+<p>We used Claude to help us write our Python code, create the graphs and fix errors. Our job was to check every result against the NIST data and make sure we understood each part of the code.</p>
+<p><strong>2. An AI Mistake We Found and Fixed</strong></p>
+<p>The AI wrote the test <code>assert len(SYMBOLS) == Z_MAX</code>, which only works when exactly 36 elements are studied. We found the problem when we changed Z_MAX to a value other than 36: Cell 5 stopped with an <code>AssertionError</code>. For smaller values, Figure 1 also crashed with an <code>IndexError</code>, because it tried to label elements outside the chosen range, such as Cr, Cu and Kr.</p>
+<p>We explained the problem to the AI and asked it to fix it. The test was changed to <code>&gt;= Z_MAX</code>, a clear error message was added for values outside 1 to 36, and the figures now only label elements inside the range. To check the fix, we ran the whole notebook for every value of Z_MAX from 1 to 36, and it worked each time.</p>
+<p><strong>3. Strengths and Limitations of AI</strong></p>
+<p>AI saved us a lot of time and made our code clear and well organised. However, it made hidden assumptions, like always using 36 elements, which we only discovered by testing the code ourselves.</p>
+<p><strong>4. What We Learned</strong></p>
+<p>Code can look correct when it is only tested with one value. Next time, we will test with different parameter values from the start.</p></div>
 </div></section>
 
 <!-- 12 SUMMARY -->
@@ -1202,7 +1235,7 @@ plt.show()</code></pre></details>
 <section class="sec" id="references"><div class="wrap">
   <h2><span class="num">13</span> References</h2><div class="underline"></div>
   <div class="nb-text"><h4 class="nb-h">8.5 References</h4>
-<ol><li>W. C. Martin, A. Musgrove, S. Kotochigova, J. E. Sansonetti, <em>Ground Levels and Ionization Energies for the Neutral Atoms</em>, NIST Standard Reference Database 111. <a href="https://www.nist.gov/pml/ground-levels-and-ionization-energies-neutral-atoms" target="_blank" rel="noopener">https://www.nist.gov/pml/ground-levels-and-ionization-energies-neutral-atoms</a> (DOI: <a href="https://dx.doi.org/10.18434/T42P4C" target="_blank" rel="noopener">https://dx.doi.org/10.18434/T42P4C</a>)</li><li><em>(textbook — author, title, edition, publisher, year, chapter)</em></li></ol></div>
+<ol><li>A. Kramida, Yu. Ralchenko, J. Reader and NIST ASD Team, <em>NIST Atomic Spectra Database</em>, Ionization Energies Data, National Institute of Standards and Technology, Gaithersburg, MD. <a href="https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H-DS+i&amp;units=1&amp;at_num_out=on&amp;el_name_out=on&amp;shells_out=on&amp;level_out=on&amp;e_out=0&amp;unc_out=on&amp;biblio=on" target="_blank" rel="noopener">NIST ASD Ionization Energies</a> (accessed November 2026).</li><li>W. C. Martin, A. Musgrove, S. Kotochigova and J. E. Sansonetti, <em>Ground Levels and Ionization Energies for the Neutral Atoms</em>, NIST Standard Reference Database 111. <a href="https://www.nist.gov/pml/ground-levels-and-ionization-energies-neutral-atoms" target="_blank" rel="noopener">NIST SRD 111</a>, DOI: <a href="https://doi.org/10.18434/T42P4C" target="_blank" rel="noopener">10.18434/T42P4C</a></li><li>A. Beiser, <em>Concepts of Modern Physics</em>, 6th ed. (McGraw-Hill, 2002), Ch. 7 "Many-Electron Atoms" and Ch. 9 "Statistical Mechanics".</li><li>Anthropic, <em>Claude</em> (AI assistant), used for code generation and debugging, November 2026.</li></ol></div>
 </div></section>
 
 <!-- 14 DOWNLOADS -->
